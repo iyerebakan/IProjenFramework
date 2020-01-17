@@ -16,12 +16,6 @@ namespace Core.Entities.Interfaces
 
         DateTime? UpdatedDate { get; set; }
 
-        Guid RowVersion { get; set; }
-
-        bool Active { get; set; }
-
-        bool IsDeleted { get; set; }
-
         TUser UpdatedByUser { get; set; }
 
         TUser CreatedByUser { get; set; }

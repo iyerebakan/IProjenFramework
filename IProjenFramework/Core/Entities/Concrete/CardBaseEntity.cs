@@ -21,13 +21,6 @@ namespace Core.Entities.Concrete
 
         public DateTime? UpdatedDate { get; set; }
 
-        public Guid RowVersion { get; set; }
-
-        [DefaultValue(true)]
-        public bool Active { get; set; }
-
-        public bool IsDeleted { get; set; }
-
         [ForeignKey("UpdateUser")]
         public TUser UpdatedByUser { get; set; }
 
@@ -41,9 +34,6 @@ namespace Core.Entities.Concrete
             {
                 this.CreateUser = userId;
                 this.CreateDate = DateTime.Now;
-                this.RowVersion = Guid.NewGuid();
-                this.Active = true;
-                this.IsDeleted = false;
             }
         }
 
