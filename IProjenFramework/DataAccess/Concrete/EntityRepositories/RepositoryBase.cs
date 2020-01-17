@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Core.DataAccess;
 using Core.Entities;
+using Core.Entities.Interfaces;
 using DataAccess.Contexts;
 using DataAccess.IoCContainer;
 using System;
