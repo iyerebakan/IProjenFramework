@@ -11,7 +11,7 @@ using System.Text;
 namespace DataAccess.Concrete.EntityRepositories
 {
     public class RepositoryBase<TKeyType, TEntity> : AbstractRepositoryBase<TKeyType, TEntity, NortwindDbContext>
-        where TEntity : class, IEntity<TKeyType>
+        where TEntity : class, IBaseEntity<TKeyType>
     {
         public override NortwindDbContext Context
         {

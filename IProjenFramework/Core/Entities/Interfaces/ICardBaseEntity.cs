@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Core.Entities.Interfaces
 {
-    public interface ICardBaseEntity<TKey, TUser> : IEntity<TKey>
+    public interface ICardBaseEntity<TKey, TUser> : IBaseEntity<TKey>
         where TUser : User
     {
-        string ModifiedBy { get; set; }
+        int? UpdateUser { get; set; }
 
-        string CreatedBy { get; set; }
+        int? CreateUser { get; set; }
 
-        DateTime CreationDate { get; set; }
+        DateTime? CreateDate { get; set; }
 
         DateTime? UpdatedDate { get; set; }
 
@@ -22,7 +22,7 @@ namespace Core.Entities.Interfaces
 
         bool IsDeleted { get; set; }
 
-        TUser ModifiedByUser { get; set; }
+        TUser UpdatedByUser { get; set; }
 
         TUser CreatedByUser { get; set; }
     }

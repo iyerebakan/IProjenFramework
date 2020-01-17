@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Core.Entities.Interfaces
 {
-    public interface IEntity<T>
+    public interface IBaseEntity<T>
     {
         T Id { get; set; }
     }

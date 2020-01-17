@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core.Entities.Concrete
 {
-    public class User : IEntity<int>
+    public class User : IBaseEntity<int>
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

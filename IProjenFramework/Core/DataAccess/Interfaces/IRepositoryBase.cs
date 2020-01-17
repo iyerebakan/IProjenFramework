@@ -9,7 +9,7 @@ using System.Text;
 namespace Core.DataAccess.Interfaces
 {
     public interface IRepositoryBase<TKeyType, TEntity, TContext>
-        where TEntity : class, IEntity<TKeyType>
+        where TEntity : class, IBaseEntity<TKeyType>
         where TContext : DbContext
     {
         TContext Context { get; }

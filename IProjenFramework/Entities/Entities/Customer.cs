@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Entities.Concrete;
 using Core.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,18 @@ using System.Text;
 
 namespace Entities.Entities
 {
-    public class Customer : IEntity<int>
+    public class Customer : CardBaseEntity<int,User>
     {
-        public int Id { get; set; }
+        public Customer(bool create, int userId)
+            : base(create, userId)
+        {
+        }
+
+        public Customer()
+            : base(false, null)
+        {
+        }
+
         public string DisplayName { get; set; }
         public string Title { get; set; }
         public string Email { get; set; }

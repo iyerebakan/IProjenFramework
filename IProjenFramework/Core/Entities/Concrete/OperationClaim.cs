@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Core.Entities.Concrete
 {
-    public class OperationClaim : IEntity<int>
+    public class OperationClaim : IBaseEntity<int>
     {
         public int Id { get; set; }
         public string Name { get; set; }

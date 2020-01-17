@@ -11,7 +11,7 @@ using System.Text;
 namespace Core.DataAccess
 {
     public abstract class AbstractRepositoryBase<TKeyType, TEntity, TContext> : IRepositoryBase<TKeyType, TEntity, TContext>
-       where TEntity : class, IEntity<TKeyType>
+       where TEntity : class, IBaseEntity<TKeyType>
        where TContext : DbContext
     {
 
