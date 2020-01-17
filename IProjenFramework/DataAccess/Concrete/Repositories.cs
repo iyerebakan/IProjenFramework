@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DataAccess.Abstract;
 using DataAccess.Concrete.EntityRepositories;
 using DataAccess.Contexts;
 using DataAccess.IoCContainer;
@@ -18,11 +19,11 @@ namespace DataAccess.Concrete
             }
         }
 
-        public static RepositoryUser RepositoryUser
+        public static IRepositoryUser RepositoryUser
         {
             get
             {
-                return IoCData.Container.Resolve<RepositoryUser>();
+                return IoCData.Container.Resolve<IRepositoryUser>();
             }
         }
     }
