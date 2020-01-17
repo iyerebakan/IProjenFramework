@@ -19,11 +19,11 @@ namespace DataAccess.Concrete
             }
         }
 
-        public static IRepositoryUser RepositoryUser
+        public static RepositoryUser RepositoryUser
         {
             get
             {
-                return IoCData.Container.Resolve<IRepositoryUser>();
+                return IoCData.Container.Resolve<RepositoryUser>();
             }
         }
     }

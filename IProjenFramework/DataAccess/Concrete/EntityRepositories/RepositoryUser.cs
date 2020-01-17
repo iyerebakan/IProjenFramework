@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityRepositories
 {
-    public class RepositoryUser : RepositoryBase<int, User>, IRepositoryUser
+    public class RepositoryUser : RepositoryBase<int, User>
     {
         public List<OperationClaim> GetClaims(User user)
         {

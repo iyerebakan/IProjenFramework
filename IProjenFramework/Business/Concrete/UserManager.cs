@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete;
+﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using DataAccess.Concrete;
 using System;
 using System.Collections.Generic;
@@ -6,11 +7,21 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class UserManager
+    public class UserManager : IUserService
     {
-        public List<OperationClaim> GetClaims()
+        public void Add(User user)
         {
-            return Repositories.RepositoryUser.GetClaims(Repositories.Context.Users.Find(1));
+            Repositories.RepositoryUser.Insert(user);
+        }
+
+        public User GetByMail(string email)
+        {
+            return Repositories.RepositoryUser.Get(k => k.Email == email);
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return Repositories.RepositoryUser.GetClaims(user);
         }
     }
 }

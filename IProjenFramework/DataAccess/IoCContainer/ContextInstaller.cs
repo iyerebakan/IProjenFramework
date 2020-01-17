@@ -14,7 +14,7 @@ namespace DataAccess.IoCContainer
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<NortwindDbContext>().InstancePerLifetimeScope();
-            builder.RegisterType<RepositoryUser>().As<IRepositoryUser>().SingleInstance();
+            builder.RegisterType<RepositoryUser>().SingleInstance();
         }
     }
 }
