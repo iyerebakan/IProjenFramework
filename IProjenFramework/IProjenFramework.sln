@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{81F9263F-41E7-4C10-B8A1-FDA818A7C395}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSync", "MailSync\MailSync.csproj", "{ED59F222-7058-4C60-ACE9-2EFC5A2F3237}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{81F9263F-41E7-4C10-B8A1-FDA818A7C395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81F9263F-41E7-4C10-B8A1-FDA818A7C395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81F9263F-41E7-4C10-B8A1-FDA818A7C395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED59F222-7058-4C60-ACE9-2EFC5A2F3237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED59F222-7058-4C60-ACE9-2EFC5A2F3237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED59F222-7058-4C60-ACE9-2EFC5A2F3237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED59F222-7058-4C60-ACE9-2EFC5A2F3237}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
