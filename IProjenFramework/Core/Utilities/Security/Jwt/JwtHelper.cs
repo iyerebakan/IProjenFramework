@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -14,12 +15,16 @@ namespace Core.Utilities.Security.Jwt
 {
     public class JwtHelper : ITokenHelper
     {
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
         private TokenOptions _tokenOptions;
         private DateTime _accessTokenExpiration;
-        public JwtHelper(IConfiguration configuration)
+        public JwtHelper()
         {
-            Configuration = configuration;
+            var configurationBuilder = new ConfigurationBuilder();
+            string appsettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
+            configurationBuilder.AddJsonFile(appsettingsPath, false);
+
+            Configuration = configurationBuilder.Build();
             _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
         }
 

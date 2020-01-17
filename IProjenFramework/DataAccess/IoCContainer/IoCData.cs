@@ -18,6 +18,7 @@ namespace DataAccess.IoCContainer
                 if (_container == null)
                 {
                     var builder = new ContainerBuilder();
+                    builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly());
                     builder.RegisterModule(new ContextInstaller());
                     _container = builder.Build();
                 }

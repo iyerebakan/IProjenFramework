@@ -13,14 +13,9 @@ namespace Business.Concrete
 {
     public class AuthManager : IAuthService
     {
-        private ITokenHelper _tokenHelper;
-        public AuthManager(ITokenHelper tokenHelper)
-        {
-            _tokenHelper = tokenHelper;
-        }
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
-            var accessToken = _tokenHelper.CreateToken(user, ServiceLogics.UserManager.GetClaims(user));
+            var accessToken = ServiceLogics.TokenHelper.CreateToken(user, ServiceLogics.UserManager.GetClaims(user));
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 

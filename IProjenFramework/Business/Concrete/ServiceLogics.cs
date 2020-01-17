@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Business.Abstract;
 using Business.IoCContainer;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Contexts;
 using DataAccess.IoCContainer;
 using System;
@@ -13,6 +14,13 @@ namespace Business.Concrete
     {
         public static NortwindDbContext Context { get { return IoCData.Container.Resolve<NortwindDbContext>(); } }
 
+        public static ITokenHelper TokenHelper
+        {
+            get
+            {
+                return IoCService.Container.Resolve<ITokenHelper>();
+            }
+        }
         public static IUserService UserManager
         {
             get
