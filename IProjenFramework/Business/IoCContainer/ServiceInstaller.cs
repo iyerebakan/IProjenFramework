@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Business.IoCContainer
 {
-    public class ContextInstaller : Module
+    public class ServiceInstaller : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

@@ -18,7 +18,7 @@ namespace Business.IoCContainer
                 {
                     var builder = new ContainerBuilder();
                     builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
-                    builder.RegisterModule(new ContextInstaller());
+                    builder.RegisterModule(new ServiceInstaller());
                     _container = builder.Build();
                 }
 

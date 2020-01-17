@@ -4,6 +4,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
+using DataAccess.Concrete;
 using Entities.Dtos;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,7 @@ namespace Business.Concrete
                 Status = true
             };
             ServiceLogics.UserManager.Add(user);
+            ServiceLogics.Context.SaveChanges();
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
 
