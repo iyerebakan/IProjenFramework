@@ -24,3 +24,6 @@ namespace WebAPI
                 });
     }
 }
+
+
+//dotnet ef dbcontext scaffold "Server=.;Database=Northwind;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Entities -f -c NotrwindContext --data-annotations
