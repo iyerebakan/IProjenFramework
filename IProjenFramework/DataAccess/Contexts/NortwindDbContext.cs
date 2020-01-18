@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using DataAccess.Utilities;
 using Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,9 +10,14 @@ namespace DataAccess.Contexts
 {
     public class NortwindDbContext : DbContext
     {
+        private readonly AppConfigurationHelper appConfiguration;
+        public NortwindDbContext()
+        {
+            appConfiguration = new AppConfigurationHelper();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.;Database=Northwind;User ID=sa;Password=#1q2w3e#");
+            optionsBuilder.UseSqlServer(appConfiguration.GetConnectionstring());
         }
 
         public DbSet<User> Users { get; set; }

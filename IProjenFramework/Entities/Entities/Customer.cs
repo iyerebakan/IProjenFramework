@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Entities.Entities
 {
-    public class Customer : CardBaseEntity<int,User>
+    public class Customer : CardBaseEntity<int>
     {
         public Customer(bool create, int userId)
             : base(create, userId)

@@ -8,8 +8,7 @@ using System.Text;
 
 namespace Core.Entities.Concrete
 {
-    public abstract class CardBaseEntity<TKey, TUser> : BaseEntity<TKey>, ICardBaseEntity<TKey, TUser>
-        where TUser : User
+    public abstract class CardBaseEntity<TKey> : BaseEntity<TKey>, ICardBaseEntity<TKey>
     {
         [MaxLength(128)]
         public int? UpdateUser { get; set; }
@@ -19,13 +18,7 @@ namespace Core.Entities.Concrete
 
         public DateTime? CreateDate { get; set; }
 
-        public DateTime? UpdatedDate { get; set; }
-
-        [ForeignKey("UpdateUser")]
-        public TUser UpdatedByUser { get; set; }
-
-        [ForeignKey("CreateUser")]
-        public TUser CreatedByUser { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public CardBaseEntity(bool create, int? userId)
             : base(create)

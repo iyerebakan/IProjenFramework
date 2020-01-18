@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Core.Entities.Interfaces
 {
-    public interface ICardBaseEntity<TKey, TUser> : IBaseEntity<TKey>
-        where TUser : User
+    public interface ICardBaseEntity<TKey> : IBaseEntity<TKey>
     {
         int? UpdateUser { get; set; }
 
@@ -14,10 +13,6 @@ namespace Core.Entities.Interfaces
 
         DateTime? CreateDate { get; set; }
 
-        DateTime? UpdatedDate { get; set; }
-
-        TUser UpdatedByUser { get; set; }
-
-        TUser CreatedByUser { get; set; }
+        DateTime? UpdateDate { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Concrete;
 using Entities.Entities;
@@ -10,6 +12,7 @@ namespace Business.Concrete
 {
     public class CustomerManager : ICustomerService
     {
+        [ValidationAspect(typeof(CustomerValidator), Priority = 1)]
         public IResult Add(Customer customer)
         {
             try
