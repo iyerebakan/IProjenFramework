@@ -13,7 +13,6 @@ namespace Business.Concrete
     public static class ServiceLogics
     {
         public static NortwindDbContext Context { get { return IoCData.Container.Resolve<NortwindDbContext>(); } }
-
         public static ITokenHelper TokenHelper
         {
             get
@@ -28,12 +27,18 @@ namespace Business.Concrete
                 return IoCService.Container.Resolve<IUserService>();
             }
         }
-
         public static IAuthService AuthManager
         {
             get
             {
                 return IoCService.Container.Resolve<IAuthService>();
+            }
+        }
+        public static ICustomerService CustomerManager
+        {
+            get
+            {
+                return IoCService.Container.Resolve<ICustomerService>();
             }
         }
     }

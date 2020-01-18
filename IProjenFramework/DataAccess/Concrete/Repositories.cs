@@ -26,5 +26,13 @@ namespace DataAccess.Concrete
                 return IoCData.Container.Resolve<RepositoryUser>();
             }
         }
+
+        public static RepositoryCustomer RepositoryCustomer
+        {
+            get
+            {
+                return IoCData.Container.Resolve<RepositoryCustomer>();
+            }
+        }
     }
 }
