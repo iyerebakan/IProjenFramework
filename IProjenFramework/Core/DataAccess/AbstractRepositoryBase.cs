@@ -10,7 +10,8 @@ using System.Text;
 
 namespace Core.DataAccess
 {
-    public abstract class AbstractRepositoryBase<TKeyType, TEntity, TContext> : IRepositoryBase<TKeyType, TEntity, TContext>
+    public abstract class AbstractRepositoryBase<TKeyType, TEntity, TContext> : 
+        IRepositoryBase<TKeyType, TEntity, TContext>
        where TEntity : class, IBaseEntity<TKeyType>
        where TContext : DbContext
     {
