@@ -27,5 +27,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
+
+        [HttpGet("getall")]
+        public IActionResult GetAllCustomers()
+        {
+            var result = ServiceLogics.CustomerManager.GetCustomers();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(result.Message);
+        }
     }
 }

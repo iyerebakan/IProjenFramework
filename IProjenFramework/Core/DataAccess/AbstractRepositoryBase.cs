@@ -30,9 +30,15 @@ namespace Core.DataAccess
         {
             return this.EntitySet.Where(condition).SingleOrDefault();
         }
+
         public TEntity GetById(TKeyType id)
         {
             return this.EntitySet.Find(id);
+        }
+
+        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> condition = null)
+        {
+            return this.EntitySet.Where(condition ?? (k => true)).ToList();
         }
 
         public void Insert(TEntity entity)

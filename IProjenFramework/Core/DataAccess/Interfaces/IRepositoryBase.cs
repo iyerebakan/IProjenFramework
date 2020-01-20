@@ -14,7 +14,9 @@ namespace Core.DataAccess.Interfaces
     {
         TContext Context { get; }
         DbSet<TEntity> EntitySet { get; }
+        TEntity Get(Expression<Func<TEntity, bool>> condition);
         TEntity GetById(TKeyType id);
+        List<TEntity> GetAll(Expression<Func<TEntity, bool>> condition = null);
         void Insert(TEntity entity);
         void Update(TEntity entity);
         void UpdateMap(TEntity entity, Action<TEntity, TEntity> expression);
