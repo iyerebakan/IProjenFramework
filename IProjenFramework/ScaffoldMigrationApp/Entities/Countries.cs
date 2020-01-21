@@ -18,6 +18,7 @@ namespace ScaffoldConsoleApp.Entities
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+        public int deneme { get; set; }
 
         [InverseProperty("Country")]
         public virtual ICollection<Cities> Cities { get; set; }
