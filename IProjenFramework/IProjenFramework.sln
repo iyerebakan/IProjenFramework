@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSync", "MailSync\MailSy
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2D9DF82C-36C6-4333-BED0-55CDC2E031CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCoreScaffold", "EfCoreScaffold\EfCoreScaffold.csproj", "{EBE0A7AD-836B-44D7-A92D-4BBEE0B35C99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScaffoldConsoleApp", "ScaffoldConsoleApp\ScaffoldConsoleApp.csproj", "{A0B2E23B-B52A-4A28-8A0B-D6CAA5F91242}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,16 +49,16 @@ Global
 		{ED59F222-7058-4C60-ACE9-2EFC5A2F3237}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED59F222-7058-4C60-ACE9-2EFC5A2F3237}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED59F222-7058-4C60-ACE9-2EFC5A2F3237}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBE0A7AD-836B-44D7-A92D-4BBEE0B35C99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBE0A7AD-836B-44D7-A92D-4BBEE0B35C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBE0A7AD-836B-44D7-A92D-4BBEE0B35C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBE0A7AD-836B-44D7-A92D-4BBEE0B35C99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0B2E23B-B52A-4A28-8A0B-D6CAA5F91242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0B2E23B-B52A-4A28-8A0B-D6CAA5F91242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0B2E23B-B52A-4A28-8A0B-D6CAA5F91242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0B2E23B-B52A-4A28-8A0B-D6CAA5F91242}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EBE0A7AD-836B-44D7-A92D-4BBEE0B35C99} = {2D9DF82C-36C6-4333-BED0-55CDC2E031CE}
+		{A0B2E23B-B52A-4A28-8A0B-D6CAA5F91242} = {2D9DF82C-36C6-4333-BED0-55CDC2E031CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD0CFD33-1E3C-4F4D-B10D-F4C0CECB26A9}
