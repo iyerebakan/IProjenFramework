@@ -15,7 +15,7 @@ namespace Business.ValidationRules
             RuleFor(k => k.TaxOffice).NotEmpty().WithMessage("Vergi dairesi boş olamaz.");
             RuleFor(k => k.TaxNumber).MaximumLength(10).When(k => k.TaxNumber != null)
                 .WithMessage("Vergi numarası en fazla 10 karakter olabilir.");
-            RuleFor(k => k.Identifier).MaximumLength(11).When(k => k.TaxNumber != null)
+            RuleFor(k => k.Identifier).MaximumLength(11).When(k => k.Identifier != null)
                 .WithMessage("Vergi numarası en fazla 11 karakter olabilir.");
         }
     }
