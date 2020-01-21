@@ -1,4 +1,9 @@
-﻿using System;
+﻿using DataAccess.Utilities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using ScaffoldConsoleApp.Entities;
+using System;
+using System.Linq;
 
 namespace ScaffoldConsoleApp
 {
@@ -6,7 +11,17 @@ namespace ScaffoldConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var appConfiguration = new AppConfigurationHelper();
+
+            DbContextOptionsBuilder<NortwindContext> optionsBuilder = new DbContextOptionsBuilder<NortwindContext>()
+                .UseSqlServer(appConfiguration.GetConnectionstring());
+
+            using (NortwindContext sc = new NortwindContext(optionsBuilder.Options))
+            {
+
+                sc.Database.Migrate();
+                sc.Districts.ToList();
+            }
         }
     }
 }
