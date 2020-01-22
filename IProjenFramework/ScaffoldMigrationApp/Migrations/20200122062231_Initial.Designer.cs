@@ -10,7 +10,7 @@ using ScaffoldConsoleApp.Entities;
 namespace ScaffoldMigrationApp.Migrations
 {
     [DbContext(typeof(NortwindContext))]
-    [Migration("20200122061911_Initial")]
+    [Migration("20200122062231_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
