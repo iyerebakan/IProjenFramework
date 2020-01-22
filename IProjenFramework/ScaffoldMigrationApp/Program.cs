@@ -40,7 +40,7 @@ namespace ScaffoldConsoleApp
             serviceCollection.AddDbContext<NortwindContext>(x =>
             {
                 x.UseSqlServer(connectionString);
-            }, ServiceLifetime.Singleton);            
+            }, ServiceLifetime.Singleton);
         }
 
         private static void ApplicationStart()

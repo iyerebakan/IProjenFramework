@@ -61,13 +61,22 @@ namespace ScaffoldMigrationApp.Base
                 this.BeforeDatabaseReset(contextType, context);
                 this.DatabaseReset(context);
                 this.AfterDatabaseReset(contextType, context);
+                this.BeforeDatabaseMigrate(contextType, context);
+
+                context.Database.EnsureCreated();
+
+                this.AfterDatabaseMigrate(contextType, context);
+
+            }
+            else
+            {
+                this.BeforeDatabaseMigrate(contextType, context);
+                context.Database.Migrate();
+                this.AfterDatabaseMigrate(contextType, context);
+                
             }
 
-            this.BeforeDatabaseMigrate(contextType, context);
-
-            context.Database.EnsureCreated();
-
-            this.AfterDatabaseMigrate(contextType, context);
+            
         }
 
         public void MigrateAndCreateViews<TContext>(bool databaseReset = false, Dictionary<string, string> viewQueryParams = null) where TContext : DbContext
