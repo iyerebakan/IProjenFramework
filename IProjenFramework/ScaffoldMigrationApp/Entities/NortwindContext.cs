@@ -15,6 +15,7 @@ namespace ScaffoldConsoleApp.Entities
         {
         }
 
+        public NortwindContext NortwindContext_I { get; set; }
         public virtual DbSet<Cities> Cities { get; set; }
         public virtual DbSet<Countries> Countries { get; set; }
         public virtual DbSet<CustomerAddresses> CustomerAddresses { get; set; }
