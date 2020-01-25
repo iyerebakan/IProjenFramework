@@ -86,12 +86,7 @@ namespace Core.DataAccess
 
         public int Save()
         {
-            if (this.Context.ChangeTracker.HasChanges())
-            {
-                return this.Context.SaveChanges();
-            }
-
-            return -1;
+            return this.Context.SaveChanges();
         }
 
     }

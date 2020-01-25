@@ -6,17 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityCustomer.Entities.Entities
 {
-    public class Country : CardBaseEntity<int>
+    public class Country : BaseEntity<int>
     {
-        public Country(bool create, int userId)
-             : base(create, userId)
-        {
-        }
-
-        public Country()
-            : base(false, null)
-        {
-        }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }

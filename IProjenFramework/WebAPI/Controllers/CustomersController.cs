@@ -31,6 +31,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAllCustomers()
         {
+            var list = ServiceLogics.AddressManager.GetCountries();
             var result = ServiceLogics.CustomerManager.GetCustomers();
             if (result.Success)
             {
@@ -38,6 +39,29 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result.Message);
+        }
+
+        [HttpGet("countries")]
+        public IActionResult GetAllCountries()
+        {
+            return Ok(ServiceLogics.AddressManager.GetCountries());
+        }
+
+        [HttpPost("addall")]
+        public IActionResult AddCustomer()
+        {
+            try
+            {
+                var customer = new Customer { DisplayName = "name", Title = "title", Email = "email",TaxOffice="taxOffice",PhoneNumber="phone" };
+                ServiceLogics.CustomerManager.Add(customer);
+                ServiceLogics.CustomerManager.Add(customer);
+                return Ok("Kayıt Başarılı");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

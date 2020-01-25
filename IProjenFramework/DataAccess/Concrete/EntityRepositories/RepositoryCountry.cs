@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityRepositories
 {
-    public class RepositoryCountry : RepositoryBase<int,Country>
+    public class RepositoryCountry : RepositoryBase<int, Country>
     {
     }
 }

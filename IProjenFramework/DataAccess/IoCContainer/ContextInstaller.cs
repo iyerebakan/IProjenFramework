@@ -15,6 +15,8 @@ namespace DataAccess.IoCContainer
         {
             builder.RegisterType<NortwindDbContext>().InstancePerLifetimeScope();
             builder.RegisterType<RepositoryUser>().SingleInstance();
+            builder.RegisterType<RepositoryCustomer>();
+            builder.RegisterType<RepositoryCountry>().SingleInstance();
         }
     }
 }
