@@ -1,5 +1,5 @@
 ﻿using Core.Utilities.Results;
-using Entities.Entities;
+using EntityCustomer.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -4,7 +4,7 @@ using Business.ValidationRules;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Concrete;
-using Entities.Entities;
+using EntityCustomer.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
