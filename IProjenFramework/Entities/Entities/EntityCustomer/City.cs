@@ -1,14 +1,22 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityCustomer.Entities.Entities
 {
-    public class City
+    public class City : CardBaseEntity<int>
     {
-        [Key]
-        public int Id { get; set; }
+        public City(bool create, int userId)
+             : base(create, userId)
+        {
+        }
+
+        public City()
+            : base(false, null)
+        {
+        }
         public int CountryId { get; set; }
         [Required]
         [StringLength(50)]
