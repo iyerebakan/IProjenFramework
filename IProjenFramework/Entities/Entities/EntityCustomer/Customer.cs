@@ -3,9 +3,10 @@ using Core.Entities.Concrete;
 using Core.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Entities.Entities
+namespace EntityCustomer.Entities.Entities
 {
     public class Customer : CardBaseEntity<int>
     {
@@ -29,5 +30,7 @@ namespace Entities.Entities
         public string PhoneNumber { get; set; }
         public string FaxNumber { get; set; }
         public string Code { get; set; }
+        [InverseProperty("Customer")]
+        public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
     }
 }
