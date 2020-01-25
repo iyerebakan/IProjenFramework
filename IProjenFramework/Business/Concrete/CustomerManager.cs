@@ -20,7 +20,14 @@ namespace Business.Concrete
             try
             {
                 Repositories.RepositoryCustomer.Insert(customer);
-                Repositories.RepositoryCustomer.Context.SaveChanges();
+                Repositories.RepositoryCustomer.Save();
+                Repositories.RepositoryCustomer.Insert(customer);
+                Repositories.RepositoryCustomer.Save();
+                Repositories.RepositoryCustomer.Insert(customer);
+                Repositories.RepositoryCustomer.Save();
+                Repositories.RepositoryCustomer.Insert(customer);
+                var context = Repositories.Context;
+                Repositories.RepositoryCustomer.Save();
                 return new SuccessResult("Müşteri başarıyla kaydedildi.!");
             }
             catch (Exception exception)

@@ -12,7 +12,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+  
     public class CustomersController : ControllerBase
     {
 
@@ -45,23 +45,6 @@ namespace WebAPI.Controllers
         public IActionResult GetAllCountries()
         {
             return Ok(ServiceLogics.AddressManager.GetCountries());
-        }
-
-        [HttpPost("addall")]
-        public IActionResult AddCustomer()
-        {
-            try
-            {
-                var customer = new Customer { DisplayName = "name", Title = "title", Email = "email",TaxOffice="taxOffice",PhoneNumber="phone" };
-                ServiceLogics.CustomerManager.Add(customer);
-                ServiceLogics.CustomerManager.Add(customer);
-                return Ok("Kayıt Başarılı");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
         }
     }
 }

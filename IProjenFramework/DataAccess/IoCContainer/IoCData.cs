@@ -18,7 +18,7 @@ namespace DataAccess.IoCContainer
                 if (_container == null)
                 {
                     var builder = new ContainerBuilder();
-                    builder.RegisterModule(new ContextInstaller());
+                    builder.RegisterModule(new ContextInstaller());                 
                     _container = builder.Build();
                 }
 
