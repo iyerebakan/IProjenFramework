@@ -19,12 +19,12 @@ namespace Core.DataAccess
         public abstract TContext Context
         {
             get;
-        }
+        } 
 
         public DbSet<TEntity> EntitySet
         {
             get { return this.Context.Set<TEntity>(); }
-        }
+        } 
          
         public TEntity Get(Expression<Func<TEntity, bool>> condition)
         {
