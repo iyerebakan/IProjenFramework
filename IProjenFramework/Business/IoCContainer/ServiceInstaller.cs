@@ -21,6 +21,7 @@ namespace Business.IoCContainer
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
             builder.RegisterType<CustomerManager>().As<ICustomerService>().SingleInstance();
             builder.RegisterType<AddressManager>().As<IAddressService>().SingleInstance();
+            builder.RegisterType<FormManager>().As<IFormService>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

@@ -48,7 +48,13 @@ namespace Business.Concrete
                 return IoCService.Container.Resolve<IAddressService>();
             }
         }
-
+        public static IFormService FormManager
+        {
+            get
+            {
+                return IoCService.Container.Resolve<IFormService>();
+            }
+        }
 
     }
 }
