@@ -41,7 +41,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        [SecuredOperation("Customer.List,Admin")]
+       // [SecuredOperation("Customer.List,Admin")]
         public IDataResult<List<Customer>> GetCustomers()
         {
             try

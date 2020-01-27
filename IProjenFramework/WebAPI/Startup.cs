@@ -67,6 +67,8 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureCustomerExceptionMiddleware();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

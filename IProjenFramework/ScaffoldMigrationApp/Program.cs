@@ -47,7 +47,7 @@ namespace ScaffoldConsoleApp
         {
             ApplicationContext.Current.ServiceProvider.GetService<NortwindContext>();
 
-            ApplicationContext.Current.Migrate<NortwindContext>(false);
+            ApplicationContext.Current.Migrate<NortwindContext>(true);
         }
 
         public static string GetDatabaseName(string connectionStringName)

@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
             var result = ServiceLogics.CustomerManager.GetCustomers();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
