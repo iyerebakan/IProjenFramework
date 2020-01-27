@@ -16,6 +16,9 @@ namespace DataAccess.IoCContainer
             builder.RegisterType<ProjenFrameworkDbContext>().InstancePerLifetimeScope();
             builder.RegisterType<RepositoryUser>().SingleInstance();
             builder.RegisterType<RepositoryCustomer>().SingleInstance();
+            builder.RegisterType<RepositoryForm>().SingleInstance();
+            builder.RegisterType<RepositoryDesignGroup>().SingleInstance();
+            builder.RegisterType<RepositoryDesignGroupDetail>().SingleInstance();
         }
     }
 }
