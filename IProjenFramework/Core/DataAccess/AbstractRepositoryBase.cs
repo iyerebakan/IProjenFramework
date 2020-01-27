@@ -25,7 +25,7 @@ namespace Core.DataAccess
         {
             get { return this.Context.Set<TEntity>(); }
         }
-
+         
         public TEntity Get(Expression<Func<TEntity, bool>> condition)
         {
             return this.EntitySet.Where(condition).SingleOrDefault();
