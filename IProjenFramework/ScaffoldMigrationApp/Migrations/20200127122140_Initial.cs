@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ScaffoldMigrationApp.Migrations
 {
-    public partial class Initil : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,42 @@ namespace ScaffoldMigrationApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DesignGroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Description = table.Column<string>(maxLength: 225, nullable: false),
+                    DesignGroupMasterId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DesignGroups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DesignGroups_DesignGroups",
+                        column: x => x.DesignGroupMasterId,
+                        principalTable: "DesignGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Forms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    Locked = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Forms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OperationClaims",
                 columns: table => new
                 {
@@ -65,9 +101,9 @@ namespace ScaffoldMigrationApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(maxLength: 50, nullable: true),
+                    Email = table.Column<string>(maxLength: 150, nullable: true),
                     PasswordSalt = table.Column<byte[]>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
                     Status = table.Column<bool>(nullable: false)
@@ -98,6 +134,31 @@ namespace ScaffoldMigrationApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DesignGroupDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    FormId = table.Column<int>(nullable: false),
+                    DesignGroupId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DesignGroupDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DesignGroupDetails_DesignGroups",
+                        column: x => x.DesignGroupId,
+                        principalTable: "DesignGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DesignGroupDetails_Forms",
+                        column: x => x.FormId,
+                        principalTable: "Forms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserOperationClaims",
                 columns: table => new
                 {
@@ -115,6 +176,12 @@ namespace ScaffoldMigrationApp.Migrations
                         principalTable: "OperationClaims",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaims_Users",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,7 +259,8 @@ namespace ScaffoldMigrationApp.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Countries",
                 table: "Countries",
-                column: "Name");
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerAddresses_CityId",
@@ -215,6 +283,22 @@ namespace ScaffoldMigrationApp.Migrations
                 column: "DistrictId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DesignGroupDetails_FormId",
+                table: "DesignGroupDetails",
+                column: "FormId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FormId_DesignGroupId",
+                table: "DesignGroupDetails",
+                columns: new[] { "DesignGroupId", "FormId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignGroups_DesignGroupMasterId",
+                table: "DesignGroups",
+                column: "DesignGroupMasterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Districts",
                 table: "Districts",
                 column: "Name");
@@ -229,6 +313,18 @@ namespace ScaffoldMigrationApp.Migrations
                 name: "IX_UserOperationClaims_OperationClaimId",
                 table: "UserOperationClaims",
                 column: "OperationClaimId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOperationClaims_UserId",
+                table: "UserOperationClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users",
+                table: "Users",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -237,10 +333,10 @@ namespace ScaffoldMigrationApp.Migrations
                 name: "CustomerAddresses");
 
             migrationBuilder.DropTable(
-                name: "UserOperationClaims");
+                name: "DesignGroupDetails");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "UserOperationClaims");
 
             migrationBuilder.DropTable(
                 name: "Customers");
@@ -249,7 +345,16 @@ namespace ScaffoldMigrationApp.Migrations
                 name: "Districts");
 
             migrationBuilder.DropTable(
+                name: "DesignGroups");
+
+            migrationBuilder.DropTable(
+                name: "Forms");
+
+            migrationBuilder.DropTable(
                 name: "OperationClaims");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Cities");

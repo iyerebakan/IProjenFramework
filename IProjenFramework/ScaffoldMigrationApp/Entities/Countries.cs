@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ScaffoldConsoleApp.Entities
+namespace ScaffoldMigrationApp.Entities
 {
     public partial class Countries
     {
@@ -18,6 +18,7 @@ namespace ScaffoldConsoleApp.Entities
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+
         [InverseProperty("Country")]
         public virtual ICollection<Cities> Cities { get; set; }
         [InverseProperty("Country")]

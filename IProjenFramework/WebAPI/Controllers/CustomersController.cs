@@ -12,7 +12,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+    [Authorize]
     public class CustomersController : ControllerBase
     {
         [HttpPost("add")]
@@ -20,12 +20,12 @@ namespace WebAPI.Controllers
         {
             var result = ServiceLogics.CustomerManager.Add(customer);
             
-            if (result.Result.Success)
+            if (result.Success)
             {
-                return Ok(result.Result.Message);
+                return Ok(result.Message);
             }
 
-            return BadRequest(result.Result.Message);
+            return BadRequest(result.Message);
         }
 
         [HttpGet("getall")]

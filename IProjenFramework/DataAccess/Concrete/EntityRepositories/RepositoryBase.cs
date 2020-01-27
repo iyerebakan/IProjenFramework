@@ -10,14 +10,14 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityRepositories
 {
-    public class RepositoryBase<TKeyType, TEntity> : AbstractRepositoryBase<TKeyType, TEntity, NortwindDbContext>
+    public class RepositoryBase<TKeyType, TEntity> : AbstractRepositoryBase<TKeyType, TEntity, ProjenFrameworkDbContext>
         where TEntity : class, IBaseEntity<TKeyType>
     {
-        public override NortwindDbContext Context
+        public override ProjenFrameworkDbContext Context
         {
             get
             {
-                return IoCData.Container.Resolve<NortwindDbContext>();
+                return IoCData.Container.Resolve<ProjenFrameworkDbContext>();
             }
         }
     }

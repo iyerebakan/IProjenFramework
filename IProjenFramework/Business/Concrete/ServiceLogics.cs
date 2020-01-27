@@ -12,7 +12,7 @@ namespace Business.Concrete
 {
     public static class ServiceLogics
     {
-        public static NortwindDbContext Context { get { return IoCData.Container.Resolve<NortwindDbContext>(); } }
+        public static ProjenFrameworkDbContext Context { get { return IoCData.Container.Resolve<ProjenFrameworkDbContext>(); } }
         public static ITokenHelper TokenHelper
         {
             get

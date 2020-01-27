@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ScaffoldConsoleApp.Entities
+namespace ScaffoldMigrationApp.Entities
 {
     public partial class NortwindContext : DbContext
     {
@@ -15,12 +15,14 @@ namespace ScaffoldConsoleApp.Entities
         {
         }
 
-        public NortwindContext NortwindContext_I { get; set; }
         public virtual DbSet<Cities> Cities { get; set; }
         public virtual DbSet<Countries> Countries { get; set; }
         public virtual DbSet<CustomerAddresses> CustomerAddresses { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
+        public virtual DbSet<DesignGroupDetails> DesignGroupDetails { get; set; }
+        public virtual DbSet<DesignGroups> DesignGroups { get; set; }
         public virtual DbSet<Districts> Districts { get; set; }
+        public virtual DbSet<Forms> Forms { get; set; }
         public virtual DbSet<OperationClaims> OperationClaims { get; set; }
         public virtual DbSet<UserOperationClaims> UserOperationClaims { get; set; }
         public virtual DbSet<Users> Users { get; set; }
@@ -55,7 +57,8 @@ namespace ScaffoldConsoleApp.Entities
             modelBuilder.Entity<Countries>(entity =>
             {
                 entity.HasIndex(e => e.Name)
-                    .HasName("IX_Countries");
+                    .HasName("IX_Countries")
+                    .IsUnique();
             });
 
             modelBuilder.Entity<CustomerAddresses>(entity =>
@@ -82,6 +85,33 @@ namespace ScaffoldConsoleApp.Entities
                     .HasConstraintName("FK_CustomerAddresses_Districts");
             });
 
+            modelBuilder.Entity<DesignGroupDetails>(entity =>
+            {
+                entity.HasIndex(e => new { e.DesignGroupId, e.FormId })
+                    .HasName("IX_FormId_DesignGroupId")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.DesignGroup)
+                    .WithMany(p => p.DesignGroupDetails)
+                    .HasForeignKey(d => d.DesignGroupId)
+                    .HasConstraintName("FK_DesignGroupDetails_DesignGroups");
+
+                entity.HasOne(d => d.Form)
+                    .WithMany(p => p.DesignGroupDetails)
+                    .HasForeignKey(d => d.FormId)
+                    .HasConstraintName("FK_DesignGroupDetails_Forms");
+            });
+
+            modelBuilder.Entity<DesignGroups>(entity =>
+            {
+                entity.HasOne(d => d.DesignGroupMaster)
+                    .WithMany(p => p.InverseDesignGroupMaster)
+                    .HasForeignKey(d => d.DesignGroupMasterId)
+                    .HasConstraintName("FK_DesignGroups_DesignGroups");
+            });
+
             modelBuilder.Entity<Districts>(entity =>
             {
                 entity.HasIndex(e => e.Name)
@@ -101,6 +131,19 @@ namespace ScaffoldConsoleApp.Entities
             modelBuilder.Entity<UserOperationClaims>(entity =>
             {
                 entity.HasIndex(e => e.OperationClaimId);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserOperationClaims)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserOperationClaims_Users");
+            });
+
+            modelBuilder.Entity<Users>(entity =>
+            {
+                entity.HasIndex(e => e.Email)
+                    .HasName("IX_Users")
+                    .IsUnique();
             });
 
             OnModelCreatingPartial(modelBuilder);

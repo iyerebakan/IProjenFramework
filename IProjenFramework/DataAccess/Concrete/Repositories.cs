@@ -11,11 +11,11 @@ namespace DataAccess.Concrete
 {
     public static class Repositories
     {
-        public static NortwindDbContext Context
+        public static ProjenFrameworkDbContext Context
         {
             get
             {
-                return IoCData.Container.Resolve<NortwindDbContext>();
+                return IoCData.Container.Resolve<ProjenFrameworkDbContext>();
             }
         }
 

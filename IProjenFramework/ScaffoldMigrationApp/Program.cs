@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ScaffoldConsoleApp.Entities;
 using ScaffoldMigrationApp.Base;
+using ScaffoldMigrationApp.Entities;
 using ScaffoldMigrationApp.Helpers;
 using System;
 using System.Linq;

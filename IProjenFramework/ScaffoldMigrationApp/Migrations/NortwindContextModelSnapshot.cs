@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ScaffoldConsoleApp.Entities;
+using ScaffoldMigrationApp.Entities;
 
 namespace ScaffoldMigrationApp.Migrations
 {
@@ -19,7 +19,7 @@ namespace ScaffoldMigrationApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.Cities", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.Cities", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace ScaffoldMigrationApp.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.Countries", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.Countries", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,12 +61,13 @@ namespace ScaffoldMigrationApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
+                        .IsUnique()
                         .HasName("IX_Countries");
 
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.CustomerAddresses", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.CustomerAddresses", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +104,7 @@ namespace ScaffoldMigrationApp.Migrations
                     b.ToTable("CustomerAddresses");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.Customers", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.Customers", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,7 +162,56 @@ namespace ScaffoldMigrationApp.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.Districts", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.DesignGroupDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DesignGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FormId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormId");
+
+                    b.HasIndex("DesignGroupId", "FormId")
+                        .IsUnique()
+                        .HasName("IX_FormId_DesignGroupId");
+
+                    b.ToTable("DesignGroupDetails");
+                });
+
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.DesignGroups", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(225)")
+                        .HasMaxLength(225);
+
+                    b.Property<int?>("DesignGroupMasterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DesignGroupMasterId");
+
+                    b.ToTable("DesignGroups");
+                });
+
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.Districts", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -188,7 +238,32 @@ namespace ScaffoldMigrationApp.Migrations
                     b.ToTable("Districts");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.OperationClaims", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.Forms", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<bool>("Locked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Forms");
+                });
+
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.OperationClaims", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -203,7 +278,7 @@ namespace ScaffoldMigrationApp.Migrations
                     b.ToTable("OperationClaims");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.UserOperationClaims", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.UserOperationClaims", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -220,10 +295,12 @@ namespace ScaffoldMigrationApp.Migrations
 
                     b.HasIndex("OperationClaimId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UserOperationClaims");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.Users", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,13 +308,16 @@ namespace ScaffoldMigrationApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("varbinary(max)");
@@ -250,57 +330,93 @@ namespace ScaffoldMigrationApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasName("IX_Users")
+                        .HasFilter("[Email] IS NOT NULL");
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.Cities", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.Cities", b =>
                 {
-                    b.HasOne("ScaffoldConsoleApp.Entities.Countries", "Country")
+                    b.HasOne("ScaffoldMigrationApp.Entities.Countries", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
                         .HasConstraintName("FK_Cities_Countries")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.CustomerAddresses", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.CustomerAddresses", b =>
                 {
-                    b.HasOne("ScaffoldConsoleApp.Entities.Cities", "City")
+                    b.HasOne("ScaffoldMigrationApp.Entities.Cities", "City")
                         .WithMany("CustomerAddresses")
                         .HasForeignKey("CityId")
                         .HasConstraintName("FK_CustomerAddresses_Cities");
 
-                    b.HasOne("ScaffoldConsoleApp.Entities.Countries", "Country")
+                    b.HasOne("ScaffoldMigrationApp.Entities.Countries", "Country")
                         .WithMany("CustomerAddresses")
                         .HasForeignKey("CountryId")
                         .HasConstraintName("FK_CustomerAddresses_Countries");
 
-                    b.HasOne("ScaffoldConsoleApp.Entities.Customers", "Customer")
+                    b.HasOne("ScaffoldMigrationApp.Entities.Customers", "Customer")
                         .WithMany("CustomerAddresses")
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("FK_CustomerAddresses_Customers")
                         .IsRequired();
 
-                    b.HasOne("ScaffoldConsoleApp.Entities.Districts", "District")
+                    b.HasOne("ScaffoldMigrationApp.Entities.Districts", "District")
                         .WithMany("CustomerAddresses")
                         .HasForeignKey("DistrictId")
                         .HasConstraintName("FK_CustomerAddresses_Districts");
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.Districts", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.DesignGroupDetails", b =>
                 {
-                    b.HasOne("ScaffoldConsoleApp.Entities.Cities", "City")
+                    b.HasOne("ScaffoldMigrationApp.Entities.DesignGroups", "DesignGroup")
+                        .WithMany("DesignGroupDetails")
+                        .HasForeignKey("DesignGroupId")
+                        .HasConstraintName("FK_DesignGroupDetails_DesignGroups")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScaffoldMigrationApp.Entities.Forms", "Form")
+                        .WithMany("DesignGroupDetails")
+                        .HasForeignKey("FormId")
+                        .HasConstraintName("FK_DesignGroupDetails_Forms")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.DesignGroups", b =>
+                {
+                    b.HasOne("ScaffoldMigrationApp.Entities.DesignGroups", "DesignGroupMaster")
+                        .WithMany("InverseDesignGroupMaster")
+                        .HasForeignKey("DesignGroupMasterId")
+                        .HasConstraintName("FK_DesignGroups_DesignGroups");
+                });
+
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.Districts", b =>
+                {
+                    b.HasOne("ScaffoldMigrationApp.Entities.Cities", "City")
                         .WithMany("Districts")
                         .HasForeignKey("CityId")
                         .HasConstraintName("FK_Districts_Cities")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ScaffoldConsoleApp.Entities.UserOperationClaims", b =>
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.UserOperationClaims", b =>
                 {
-                    b.HasOne("ScaffoldConsoleApp.Entities.OperationClaims", "OperationClaim")
+                    b.HasOne("ScaffoldMigrationApp.Entities.OperationClaims", "OperationClaim")
                         .WithMany("UserOperationClaims")
                         .HasForeignKey("OperationClaimId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScaffoldMigrationApp.Entities.Users", "User")
+                        .WithMany("UserOperationClaims")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FK_UserOperationClaims_Users")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

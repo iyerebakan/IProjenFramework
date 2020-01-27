@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ScaffoldConsoleApp.Entities
+namespace ScaffoldMigrationApp.Entities
 {
     public partial class UserOperationClaims
     {
@@ -15,5 +15,8 @@ namespace ScaffoldConsoleApp.Entities
         [ForeignKey(nameof(OperationClaimId))]
         [InverseProperty(nameof(OperationClaims.UserOperationClaims))]
         public virtual OperationClaims OperationClaim { get; set; }
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty(nameof(Users.UserOperationClaims))]
+        public virtual Users User { get; set; }
     }
 }

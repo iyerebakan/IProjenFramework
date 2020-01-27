@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Concrete;
 using DataAccess.Utilities;
+using Entities.Entities.EntityForm;
 using EntityCustomer.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,10 +9,10 @@ using System.Text;
 
 namespace DataAccess.Contexts
 {
-    public class NortwindDbContext : DbContext
+    public class ProjenFrameworkDbContext : DbContext
     {
         private readonly AppConfigurationHelper appConfiguration;
-        public NortwindDbContext()
+        public ProjenFrameworkDbContext()
         {
             appConfiguration = new AppConfigurationHelper();
         }
@@ -28,5 +29,8 @@ namespace DataAccess.Contexts
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
+        public DbSet<Form> Forms { get; set; }
+        public DbSet<DesignGroup> DesignGroups { get; set; }
+        public DbSet<DesignGroupDetail> DesignGroupDetails { get; set; }
     }
 }
