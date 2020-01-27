@@ -4,11 +4,12 @@ using Business.ValidationRules;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Concrete;
-using Entities.Entities;
+using EntityCustomer.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -21,6 +22,7 @@ namespace Business.Concrete
             {
                 Repositories.RepositoryCustomer.Insert(customer);
                 Repositories.RepositoryCustomer.Save();
+
                 return new SuccessResult("Müşteri başarıyla kaydedildi.!");
             }
             catch (Exception exception)

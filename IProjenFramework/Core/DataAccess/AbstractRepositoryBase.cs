@@ -43,6 +43,10 @@ namespace Core.DataAccess
 
         public void Insert(TEntity entity)
         {
+            if (typeof(TKeyType) == typeof(Int32))
+            {
+                entity.Id = (TKeyType)(object)Convert.ToInt32(0);
+            }
             this.EntitySet.Add(entity);
         }
 

@@ -2,13 +2,13 @@
 using Core.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Core.Entities.Concrete
 {
-    public class User : IBaseEntity<int>
+    public class User : BaseEntity<int>
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
