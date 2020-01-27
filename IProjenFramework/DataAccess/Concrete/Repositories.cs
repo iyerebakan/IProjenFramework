@@ -34,5 +34,29 @@ namespace DataAccess.Concrete
                 return IoCData.Container.Resolve<RepositoryCustomer>();
             }
         }
+
+        public static RepositoryCountry RepositoryCountry
+        {
+            get
+            {
+                return IoCData.Container.Resolve<RepositoryCountry>();
+            }
+        }
+
+        public static RepositoryCity RepositoryCity
+        {
+            get
+            {
+                return IoCData.Container.Resolve<RepositoryCity>();
+            }
+        }
+
+        public static RepositoryDistrict RepositoryDistrict
+        {
+            get
+            {
+                return IoCData.Container.Resolve<RepositoryDistrict>();
+            }
+        }
     }
 }

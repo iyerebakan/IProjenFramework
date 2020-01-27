@@ -1,15 +1,13 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityCustomer.Entities.Entities
 {
-    public class District
+    public class District : BaseEntity<int>
     {
-
-        [Key]
-        public int Id { get; set; }
         public int CityId { get; set; }
         [Required]
         [StringLength(100)]

@@ -41,5 +41,14 @@ namespace Business.Concrete
                 return IoCService.Container.Resolve<ICustomerService>();
             }
         }
+        public static IAddressService AddressManager
+        {
+            get
+            {
+                return IoCService.Container.Resolve<IAddressService>();
+            }
+        }
+
+
     }
 }
