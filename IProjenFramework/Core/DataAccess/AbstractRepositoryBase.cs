@@ -21,7 +21,7 @@ namespace Core.DataAccess
             get;
         } 
 
-        public DbSet<TEntity> EntitySet
+        public DbSet<TEntity> EntitySet 
         {
             get { return this.Context.Set<TEntity>(); }
         } 
