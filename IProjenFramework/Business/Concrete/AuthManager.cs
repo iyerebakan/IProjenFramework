@@ -6,6 +6,7 @@ using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
 using DataAccess.Concrete;
 using Entities.Dtos;
+using Entities.Entities.EntityUser;
 using System;
 using System.Collections.Generic;
 using System.Text;

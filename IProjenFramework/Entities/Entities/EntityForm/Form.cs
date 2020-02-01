@@ -19,5 +19,8 @@ namespace Entities.Entities.EntityForm
 
         [InverseProperty("Form")]
         public virtual ICollection<DesignGroupDetail> DesignGroupDetails { get; set; }
+
+        [InverseProperty("Form")]
+        public virtual ICollection<FormRight> FormRights { get; set; }
     }
 }

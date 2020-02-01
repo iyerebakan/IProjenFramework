@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Concrete;
 using DataAccess.Utilities;
 using Entities.Entities.EntityForm;
+using Entities.Entities.EntityUser;
 using EntityCustomer.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;

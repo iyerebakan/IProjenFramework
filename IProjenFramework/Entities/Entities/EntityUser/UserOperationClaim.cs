@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Core.Entities.Concrete
+namespace Entities.Entities.EntityUser
 {
     public class UserOperationClaim : IBaseEntity<int>
     {

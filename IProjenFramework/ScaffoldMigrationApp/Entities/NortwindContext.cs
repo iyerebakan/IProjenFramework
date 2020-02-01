@@ -22,6 +22,7 @@ namespace ScaffoldMigrationApp.Entities
         public virtual DbSet<DesignGroupDetails> DesignGroupDetails { get; set; }
         public virtual DbSet<DesignGroups> DesignGroups { get; set; }
         public virtual DbSet<Districts> Districts { get; set; }
+        public virtual DbSet<FormRights> FormRights { get; set; }
         public virtual DbSet<Forms> Forms { get; set; }
         public virtual DbSet<OperationClaims> OperationClaims { get; set; }
         public virtual DbSet<UserOperationClaims> UserOperationClaims { get; set; }
@@ -32,7 +33,7 @@ namespace ScaffoldMigrationApp.Entities
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=ProjenFrameworkDb;User ID=sa;Password=#1q2w3e#");
+                optionsBuilder.UseSqlServer("Server=.;Database=ProjenFrameworkDb;Trusted_Connection=True;");
             }
         }
 
@@ -63,6 +64,14 @@ namespace ScaffoldMigrationApp.Entities
 
             modelBuilder.Entity<CustomerAddresses>(entity =>
             {
+                entity.HasIndex(e => e.CityId);
+
+                entity.HasIndex(e => e.CountryId);
+
+                entity.HasIndex(e => e.CustomerId);
+
+                entity.HasIndex(e => e.DistrictId);
+
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.CustomerAddresses)
                     .HasForeignKey(d => d.CityId)
@@ -87,6 +96,8 @@ namespace ScaffoldMigrationApp.Entities
 
             modelBuilder.Entity<DesignGroupDetails>(entity =>
             {
+                entity.HasIndex(e => e.FormId);
+
                 entity.HasIndex(e => new { e.DesignGroupId, e.FormId })
                     .HasName("IX_FormId_DesignGroupId")
                     .IsUnique();
@@ -106,6 +117,8 @@ namespace ScaffoldMigrationApp.Entities
 
             modelBuilder.Entity<DesignGroups>(entity =>
             {
+                entity.HasIndex(e => e.DesignGroupMasterId);
+
                 entity.HasOne(d => d.DesignGroupMaster)
                     .WithMany(p => p.InverseDesignGroupMaster)
                     .HasForeignKey(d => d.DesignGroupMasterId)
@@ -128,9 +141,32 @@ namespace ScaffoldMigrationApp.Entities
                     .HasConstraintName("FK_Districts_Cities");
             });
 
+            modelBuilder.Entity<FormRights>(entity =>
+            {
+                entity.HasOne(d => d.Form)
+                    .WithMany(p => p.FormRights)
+                    .HasForeignKey(d => d.FormId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FormRights_Forms");
+
+                entity.HasOne(d => d.OperationClaim)
+                    .WithMany(p => p.FormRights)
+                    .HasForeignKey(d => d.OperationClaimId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_FormRights_OperationClaims");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FormRights)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_FormRights_Users");
+            });
+
             modelBuilder.Entity<UserOperationClaims>(entity =>
             {
                 entity.HasIndex(e => e.OperationClaimId);
+
+                entity.HasIndex(e => e.UserId);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserOperationClaims)
@@ -143,7 +179,8 @@ namespace ScaffoldMigrationApp.Entities
             {
                 entity.HasIndex(e => e.Email)
                     .HasName("IX_Users")
-                    .IsUnique();
+                    .IsUnique()
+                    .HasFilter("([Email] IS NOT NULL)");
             });
 
             OnModelCreatingPartial(modelBuilder);

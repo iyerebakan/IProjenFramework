@@ -2,6 +2,7 @@
 using Core.Utilities.Results;
 using Core.Utilities.Security.Jwt;
 using Entities.Dtos;
+using Entities.Entities.EntityUser;
 using System;
 using System.Collections.Generic;
 using System.Text;

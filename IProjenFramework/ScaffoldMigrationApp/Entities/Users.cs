@@ -9,6 +9,7 @@ namespace ScaffoldMigrationApp.Entities
     {
         public Users()
         {
+            FormRights = new HashSet<FormRights>();
             UserOperationClaims = new HashSet<UserOperationClaims>();
         }
 
@@ -24,6 +25,8 @@ namespace ScaffoldMigrationApp.Entities
         public byte[] PasswordHash { get; set; }
         public bool Status { get; set; }
 
+        [InverseProperty("User")]
+        public virtual ICollection<FormRights> FormRights { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<UserOperationClaims> UserOperationClaims { get; set; }
     }
