@@ -20,7 +20,7 @@ namespace Core.DataAccess
             using (var context = new TContext())
             {
                 return context.Set<TEntity>().Where(condition).SingleOrDefault();
-            }
+            } 
         }
 
         public TEntity GetById(TKeyType id)
