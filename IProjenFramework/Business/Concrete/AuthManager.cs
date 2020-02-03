@@ -14,15 +14,22 @@ namespace Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        private readonly IUserService _userService;
+        private readonly ITokenHelper _tokenHelper;
+        public AuthManager(IUserService userService,ITokenHelper tokenHelper)
+        {
+            _userService = userService;
+            _tokenHelper = tokenHelper;
+        }
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
-            var accessToken = ServiceLogics.TokenHelper.CreateToken(user, ServiceLogics.UserManager.GetClaims(user));
+            var accessToken = _tokenHelper.CreateToken(user, _userService.GetClaims(user));
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = ServiceLogics.UserManager.GetByMail(userForLoginDto.Email);
+            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
@@ -49,14 +56,13 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-            ServiceLogics.UserManager.Add(user);
-            ServiceLogics.Context.SaveChanges();
+            _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
 
         public IResult UserExists(string email)
         {
-            if (ServiceLogics.UserManager.GetByMail(email) != null)
+            if (_userService.GetByMail(email) != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExist);
             }

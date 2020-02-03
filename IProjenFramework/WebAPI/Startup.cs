@@ -7,10 +7,12 @@ using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
+using DataAccess.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,6 +37,10 @@ namespace WebAPI
         {
             services.AddControllers()
                 .AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+            //services.AddDbContext<ProjenFrameworkDbContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), 
+            //    ServiceLifetime.Scoped);
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 

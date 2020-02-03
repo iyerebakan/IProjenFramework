@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Concrete;
 using DataAccess.Utilities;
+using DataAccess.Utilities.Configuration;
 using Entities.Entities.EntityForm;
 using EntityCustomer.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -11,14 +12,14 @@ namespace DataAccess.Contexts
 {
     public class ProjenFrameworkDbContext : DbContext
     {
-        private readonly AppConfigurationHelper appConfiguration;
+        private readonly AppConfigurationHelper _appConfiguration;
         public ProjenFrameworkDbContext()
         {
-            appConfiguration = new AppConfigurationHelper();
+            _appConfiguration = new AppConfigurationHelper();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(appConfiguration.GetConnectionstring());
+            optionsBuilder.UseSqlServer(_appConfiguration.GetConnectionstring());
         }
 
         public DbSet<User> Users { get; set; }

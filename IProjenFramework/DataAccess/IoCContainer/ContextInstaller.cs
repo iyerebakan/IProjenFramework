@@ -1,6 +1,5 @@
 ﻿using Autofac;
-using DataAccess.Abstract;
-using DataAccess.Concrete;
+using Core.Entities.Concrete;
 using DataAccess.Concrete.EntityRepositories;
 using DataAccess.Contexts;
 using System;
@@ -13,12 +12,14 @@ namespace DataAccess.IoCContainer
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProjenFrameworkDbContext>().InstancePerLifetimeScope();
-            builder.RegisterType<RepositoryUser>().SingleInstance();
-            builder.RegisterType<RepositoryCustomer>().SingleInstance();
-            builder.RegisterType<RepositoryForm>().SingleInstance();
-            builder.RegisterType<RepositoryDesignGroup>().SingleInstance();
-            builder.RegisterType<RepositoryDesignGroupDetail>().SingleInstance();
+            builder.RegisterType<RepositoryCity>();
+            builder.RegisterType<RepositoryCountry>();
+            builder.RegisterType<RepositoryCustomer>();
+            builder.RegisterType<RepositoryDesignGroup>();
+            builder.RegisterType<RepositoryDesignGroupDetail>();
+            builder.RegisterType<RepositoryDistrict>();
+            builder.RegisterType<RepositoryForm>();
+            builder.RegisterType<RepositoryUser>();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Business.Abstract;
 using Business.Concrete;
 using EntityCustomer.Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -15,10 +16,16 @@ namespace WebAPI.Controllers
     [Authorize]
     public class CustomersController : ControllerBase
     {
+        private readonly ICustomerService _customerService;
+        public CustomersController(ICustomerService customerService)
+        {
+            _customerService = customerService;
+        }
+
         [HttpPost("add")]
         public IActionResult Add(Customer customer)
         {
-            var result = ServiceLogics.CustomerManager.Add(customer);
+            var result = _customerService.Add(customer);
             
             if (result.Success)
             {
@@ -31,7 +38,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAllCustomers()
         {
-            var result = ServiceLogics.CustomerManager.GetCustomers();
+            var result = _customerService.GetCustomers();
             if (result.Success)
             {
                 return Ok(result.Data);

@@ -10,62 +10,51 @@ using System.Text;
 
 namespace Core.DataAccess
 {
-    public abstract class AbstractRepositoryBase<TKeyType, TEntity, TContext> : 
+    public abstract class AbstractRepositoryBase<TKeyType, TEntity, TContext> :
         IRepositoryBase<TKeyType, TEntity, TContext>
        where TEntity : class, IBaseEntity<TKeyType>
-       where TContext : DbContext
+       where TContext : DbContext, new()
     {
-
-        public abstract TContext Context
-        {
-            get;
-        } 
-
-        public DbSet<TEntity> EntitySet 
-        {
-            get { return this.Context.Set<TEntity>(); }
-        } 
-         
         public TEntity Get(Expression<Func<TEntity, bool>> condition)
         {
-            return this.EntitySet.Where(condition).SingleOrDefault();
+            using (var context = new TContext())
+            {
+                return context.Set<TEntity>().Where(condition).SingleOrDefault();
+            }
         }
 
         public TEntity GetById(TKeyType id)
         {
-            return this.EntitySet.Find(id);
+            using (var context = new TContext())
+            {
+                return context.Set<TEntity>().Find(id);
+            }
         }
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> condition = null)
         {
-            return this.EntitySet.Where(condition ?? (k => true)).ToList();
+            using (var context = new TContext())
+            {
+                return context.Set<TEntity>().Where(condition ?? (k => true)).ToList();
+            }
         }
 
         public void Insert(TEntity entity)
         {
-            if (typeof(TKeyType) == typeof(Int32))
+            using (var context = new TContext())
             {
-                entity.Id = (TKeyType)(object)Convert.ToInt32(0);
+                context.Entry(entity).State = EntityState.Added;
+                context.SaveChanges();
             }
-            this.EntitySet.Add(entity);
         }
 
         public void Update(TEntity entity)
         {
-            this.Context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public void UpdateMap(TEntity entity, Action<TEntity, TEntity> expression)
-        {
-            if (entity.Id.Equals(default(TKeyType)))
+            using (var context = new TContext())
             {
-                throw new Exception("Update için entity id doldurulmalıdır.");
+                context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
             }
-
-            var dbEntity = this.GetById(entity.Id);
-
-            expression.Invoke(entity, dbEntity);
-            this.Update(dbEntity);
         }
 
         public void DeleteById(TKeyType id)
@@ -75,22 +64,27 @@ namespace Core.DataAccess
 
         public void Delete(TEntity entity)
         {
-            this.Context.Entry(entity).State = EntityState.Deleted;
+            using (var context = new TContext())
+            {
+                context.Entry(entity).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
         }
 
         public IEnumerable<T> Filter<T>(Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, T>> selector)
         {
-            return this.EntitySet.Where(condition).Select(selector);
+            using (var context = new TContext())
+            {
+                return context.Set<TEntity>().Where(condition).Select(selector);
+            }
         }
 
         public T FilterObject<T>(Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, T>> selector)
         {
-            return this.EntitySet.Where(condition).Select(selector).SingleOrDefault();
-        }
-
-        public int Save()
-        {
-            return this.Context.SaveChanges();
+            using (var context = new TContext())
+            {
+                return context.Set<TEntity>().Where(condition).Select(selector).SingleOrDefault();
+            }
         }
 
     }

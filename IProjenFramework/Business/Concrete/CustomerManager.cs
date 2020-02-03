@@ -4,6 +4,7 @@ using Business.ValidationRules;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Concrete;
+using DataAccess.Concrete.EntityRepositories;
 using EntityCustomer.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,35 @@ namespace Business.Concrete
 {
     public class CustomerManager : ICustomerService
     {
+        private readonly RepositoryCustomer _repositoryCustomer;
+        private readonly RepositoryCountry _repositoryCountry;
+        public CustomerManager(RepositoryCustomer repositoryCustomer
+            ,RepositoryCountry repositoryCountry)
+        {
+            _repositoryCustomer = repositoryCustomer;
+            _repositoryCountry = repositoryCountry;
+        }
+
         [ValidationAspect(typeof(CustomerValidator), Priority = 1)]
         public IResult Add(Customer customer)
         {
             try
             {
-                Repositories.RepositoryCustomer.Insert(customer);
-                Repositories.RepositoryCustomer.Save();
+                string[] array = new string[] { "Türkiye", "Almanya", "Avusturya" };
+
+                _repositoryCustomer.Insert(customer);
+                _repositoryCustomer.Insert(customer);
+                _repositoryCustomer.Insert(customer);
+                
+                foreach (var item in array)
+                {
+                    _repositoryCountry.Insert(new Country
+                    {
+                        Name = item
+                    });
+                }
+                customer.Code = "lenovo";
+                _repositoryCustomer.Update(customer);
 
                 return new SuccessResult("Müşteri başarıyla kaydedildi.!");
             }
@@ -47,7 +70,7 @@ namespace Business.Concrete
             try
             {
                 return new SuccessDataResult<List<Customer>>
-                    (Repositories.RepositoryCustomer.GetAll());
+                    (_repositoryCustomer.GetAll());
             }
             catch (Exception ex)
             {

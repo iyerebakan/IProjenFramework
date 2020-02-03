@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Business.Abstract;
 using Business.Concrete;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
@@ -13,16 +14,21 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
         [HttpPost("login")]
         public ActionResult Login(UserForLoginDto userForLoginDto)
         {
-            var userToLogin = ServiceLogics.AuthManager.Login(userForLoginDto);
+            var userToLogin = _authService.Login(userForLoginDto);
             if (!userToLogin.Success)
             {
                 return BadRequest(userToLogin.Message);
             }
 
-            var result = ServiceLogics.AuthManager.CreateAccessToken(userToLogin.Data);
+            var result = _authService.CreateAccessToken(userToLogin.Data);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -34,14 +40,14 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)
         {
-            var userExists = ServiceLogics.AuthManager.UserExists(userForRegisterDto.Email);
+            var userExists = _authService.UserExists(userForRegisterDto.Email);
             if (!userExists.Success)
             {
                 return BadRequest(userExists.Message);
             }
 
-            var registerResult = ServiceLogics.AuthManager.Register(userForRegisterDto);
-            var result = ServiceLogics.AuthManager.CreateAccessToken(registerResult.Data);
+            var registerResult = _authService.Register(userForRegisterDto);
+            var result = _authService.CreateAccessToken(registerResult.Data);
             if (result.Success)
             {
                 return Ok(result.Data);

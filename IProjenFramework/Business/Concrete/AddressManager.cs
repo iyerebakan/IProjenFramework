@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Concrete;
+using DataAccess.Concrete.EntityRepositories;
 using EntityCustomer.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,26 @@ namespace Business.Concrete
 {
     public class AddressManager : IAddressService
     {
+        private readonly RepositoryCity _repositoryCity;
+        private readonly RepositoryCountry _repositoryCountry;
+        private readonly RepositoryDistrict _repositoryDistrict;
+
+        public AddressManager(
+            RepositoryCity repositoryCity, 
+            RepositoryCountry repositoryCountry,
+            RepositoryDistrict repositoryDistrict)
+        {
+            _repositoryCity = repositoryCity;
+            _repositoryCountry = repositoryCountry;
+            _repositoryDistrict = repositoryDistrict;
+        }
+
         public IDataResult<List<Country>> GetCountries()
         {
             try
             {
                 return new SuccessDataResult<List<Country>>
-                    (Repositories.RepositoryCountry.GetAll());
+                    (_repositoryCountry.GetAll());
             }
             catch (Exception ex)
             {
@@ -25,12 +40,12 @@ namespace Business.Concrete
 
         public List<City> GetCities(int countryId)
         {
-            return Repositories.RepositoryCity.GetAll(k => k.CountryId == countryId);
+            return _repositoryCity.GetAll(k => k.CountryId == countryId);
         }
         
         public List<District> GetDistricts(int cityId)
         {
-            return Repositories.RepositoryDistrict.GetAll(k => k.CityId == cityId);
+            return _repositoryDistrict.GetAll(k => k.CityId == cityId);
         }
     }
 }

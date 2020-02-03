@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace DataAccess.Utilities
+namespace DataAccess.Utilities.Configuration
 {
     public class AppConfigurationHelper
     {
@@ -20,13 +20,8 @@ namespace DataAccess.Utilities
 
         public string GetConnectionstring()
         {
-            var model = ConfigurationRoot.GetSection("ConnectionStrings").GetSection("DefaultConnection");
-            return model.Value;
-        }
-
-        public string GetWebURL()
-        {
-            var model = ConfigurationRoot.GetSection("WebURL").GetSection("URL");
+            var model = ConfigurationRoot.GetSection("ConnectionStrings")
+                .GetSection("DefaultConnection");
             return model.Value;
         }
     }
