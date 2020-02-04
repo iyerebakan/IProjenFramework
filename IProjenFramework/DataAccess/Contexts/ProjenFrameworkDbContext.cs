@@ -12,14 +12,9 @@ namespace DataAccess.Contexts
 {
     public class ProjenFrameworkDbContext : DbContext
     {
-        private readonly AppConfigurationHelper _appConfiguration;
-        public ProjenFrameworkDbContext()
+        public ProjenFrameworkDbContext(DbContextOptions options) : base(options)
         {
-            _appConfiguration = new AppConfigurationHelper();
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(_appConfiguration.GetConnectionstring());
+
         }
 
         public DbSet<User> Users { get; set; }

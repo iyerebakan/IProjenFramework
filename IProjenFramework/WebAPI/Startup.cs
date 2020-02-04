@@ -38,9 +38,9 @@ namespace WebAPI
             services.AddControllers()
                 .AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
 
-            //services.AddDbContext<ProjenFrameworkDbContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), 
-            //    ServiceLifetime.Scoped);
+            services.AddDbContext<ProjenFrameworkDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+                ServiceLifetime.Scoped);
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 

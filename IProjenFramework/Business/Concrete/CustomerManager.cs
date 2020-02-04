@@ -26,26 +26,11 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CustomerValidator), Priority = 1)]
-        public IResult Add(Customer customer)
+        public async Task<IResult> Add(Customer customer)
         {
             try
             {
-                string[] array = new string[] { "Türkiye", "Almanya", "Avusturya" };
-
-                _repositoryCustomer.Insert(customer);
-                _repositoryCustomer.Insert(customer);
-                _repositoryCustomer.Insert(customer);
-                
-                foreach (var item in array)
-                {
-                    _repositoryCountry.Insert(new Country
-                    {
-                        Name = item
-                    });
-                }
-                customer.Code = "lenovo";
-                _repositoryCustomer.Update(customer);
-
+                await _repositoryCustomer.Insert(customer);
                 return new SuccessResult("Müşteri başarıyla kaydedildi.!");
             }
             catch (Exception exception)
@@ -54,23 +39,23 @@ namespace Business.Concrete
             }
         }
 
-        public IResult DeleteById(int id)
+        public async Task<IResult> DeleteById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Update(Customer customer)
+        public async Task<IResult> Update(Customer customer)
         {
             throw new NotImplementedException();
         }
 
         [SecuredOperation("Customer.List,Admin")]
-        public IDataResult<List<Customer>> GetCustomers()
+        public async Task<IDataResult<List<Customer>>> GetCustomers()
         {
             try
             {
                 return new SuccessDataResult<List<Customer>>
-                    (_repositoryCustomer.GetAll());
+                    (await _repositoryCustomer.GetAll());
             }
             catch (Exception ex)
             {

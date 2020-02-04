@@ -7,84 +7,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Core.DataAccess
 {
     public abstract class AbstractRepositoryBase<TKeyType, TEntity, TContext> :
         IRepositoryBase<TKeyType, TEntity, TContext>
        where TEntity : class, IBaseEntity<TKeyType>
-       where TContext : DbContext, new()
+       where TContext : DbContext
     {
-        public TEntity Get(Expression<Func<TEntity, bool>> condition)
+        protected abstract TContext Context { get; }
+        private DbSet<TEntity> EntitySet
         {
-            using (var context = new TContext())
-            {
-                return context.Set<TEntity>().Where(condition).SingleOrDefault();
-            } 
+            get { return this.Context.Set<TEntity>(); }
+        }
+        public Task<TEntity> Get(Expression<Func<TEntity, bool>> condition)
+        {
+            return this.Context.Set<TEntity>().Where(condition).SingleOrDefaultAsync();
+
         }
 
-        public TEntity GetById(TKeyType id)
+        public ValueTask<TEntity> GetById(TKeyType id)
         {
-            using (var context = new TContext())
-            {
-                return context.Set<TEntity>().Find(id);
-            }
+            return this.Context.Set<TEntity>().FindAsync(id);
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> condition = null)
+        public Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> condition = null)
         {
-            using (var context = new TContext())
-            {
-                return context.Set<TEntity>().Where(condition ?? (k => true)).ToList();
-            }
+            return this.Context.Set<TEntity>().Where(condition ?? (k => true)).ToListAsync();
         }
 
-        public void Insert(TEntity entity)
+        public Task Insert(TEntity entity)
         {
-            using (var context = new TContext())
-            {
-                context.Entry(entity).State = EntityState.Added;
-                context.SaveChanges();
-            }
+            this.Context.Entry(entity).State = EntityState.Added;
+            return this.Context.SaveChangesAsync();
         }
 
-        public void Update(TEntity entity)
+        public Task Update(TEntity entity)
         {
-            using (var context = new TContext())
-            {
-                context.Entry(entity).State = EntityState.Modified;
-                context.SaveChanges();
-            }
+            this.Context.Entry(entity).State = EntityState.Modified;
+            return this.Context.SaveChangesAsync();
         }
 
-        public void DeleteById(TKeyType id)
+        public Task DeleteById(TKeyType id)
         {
-            this.Delete(this.GetById(id));
+            return this.Delete(GetById(id));
         }
 
-        public void Delete(TEntity entity)
+        public Task Delete(ValueTask<TEntity> entity)
         {
-            using (var context = new TContext())
-            {
-                context.Entry(entity).State = EntityState.Deleted;
-                context.SaveChanges();
-            }
+            this.Context.Entry(entity).State = EntityState.Deleted;
+            return this.Context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> Filter<T>(Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, T>> selector)
+        public Task<List<T>> Filter<T>(Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, T>> selector)
         {
-            using (var context = new TContext())
-            {
-                return context.Set<TEntity>().Where(condition).Select(selector);
-            }
+            return this.Context.Set<TEntity>().Where(condition).Select(selector).ToListAsync();
         }
 
-        public T FilterObject<T>(Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, T>> selector)
+        public Task<T> FilterObject<T>(Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, T>> selector)
         {
-            using (var context = new TContext())
-            {
-                return context.Set<TEntity>().Where(condition).Select(selector).SingleOrDefault();
-            }
+            return this.Context.Set<TEntity>().Where(condition)
+                    .Select(selector).SingleOrDefaultAsync();
         }
 
     }

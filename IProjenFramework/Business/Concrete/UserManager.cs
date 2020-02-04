@@ -5,6 +5,7 @@ using DataAccess.Concrete.EntityRepositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -15,19 +16,19 @@ namespace Business.Concrete
         {
             _repositoryUser = repositoryUser;
         }
-        public void Add(User user)
+        public async Task Add(User user)
         {
-            _repositoryUser.Insert(user);
+            await _repositoryUser.Insert(user);
         }
 
-        public User GetByMail(string email)
+        public async Task<User> GetByMail(string email)
         {
-            return _repositoryUser.Get(k => k.Email == email);
+            return await _repositoryUser.Get(k => k.Email == email);
         }
 
-        public List<OperationClaim> GetClaims(User user)
+        public async Task<List<OperationClaim>> GetClaims(User user)
         {
-            return _repositoryUser.GetClaims(user);
+            return await _repositoryUser.GetClaims(user);
         }
     }
 }

@@ -27,24 +27,24 @@ namespace WebAPI.Controllers
         {
             var result = _customerService.Add(customer);
             
-            if (result.Success)
+            if (result.Result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result.Result.Message);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result.Result.Message);
         }
 
         [HttpGet("getall")]
         public IActionResult GetAllCustomers()
         {
             var result = _customerService.GetCustomers();
-            if (result.Success)
+            if (result.Result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result.Result.Data);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result.Result.Message);
         }
     }
 }

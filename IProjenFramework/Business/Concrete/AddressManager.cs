@@ -6,6 +6,7 @@ using EntityCustomer.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -25,12 +26,12 @@ namespace Business.Concrete
             _repositoryDistrict = repositoryDistrict;
         }
 
-        public IDataResult<List<Country>> GetCountries()
+        public async Task<IDataResult<List<Country>>> GetCountries()
         {
             try
             {
                 return new SuccessDataResult<List<Country>>
-                    (_repositoryCountry.GetAll());
+                    (await _repositoryCountry.GetAll());
             }
             catch (Exception ex)
             {
@@ -38,14 +39,14 @@ namespace Business.Concrete
             }
         }
 
-        public List<City> GetCities(int countryId)
+        public async Task<List<City>> GetCities(int countryId)
         {
-            return _repositoryCity.GetAll(k => k.CountryId == countryId);
+            return await _repositoryCity.GetAll(k => k.CountryId == countryId);
         }
         
-        public List<District> GetDistricts(int cityId)
+        public async Task<List<District>> GetDistricts(int cityId)
         {
-            return _repositoryDistrict.GetAll(k => k.CityId == cityId);
+            return await _repositoryDistrict.GetAll(k => k.CityId == cityId);
         }
     }
 }

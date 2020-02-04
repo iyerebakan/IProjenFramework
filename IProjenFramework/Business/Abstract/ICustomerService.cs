@@ -9,9 +9,9 @@ namespace Business.Abstract
 {
     public interface ICustomerService
     {
-        IResult Add(Customer customer);
-        IResult Update(Customer customer);
-        IResult DeleteById(int id);
-        IDataResult<List<Customer>> GetCustomers();
+        Task<IResult> Add(Customer customer);
+        Task<IResult> Update(Customer customer);
+        Task<IResult> DeleteById(int id);
+        Task<IDataResult<List<Customer>>> GetCustomers();
     }
 } 

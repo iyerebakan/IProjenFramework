@@ -15,6 +15,12 @@ namespace DataAccess.Concrete.EntityRepositories
     public class RepositoryBase<TKeyType, TEntity> : AbstractRepositoryBase<TKeyType, TEntity, ProjenFrameworkDbContext>
         where TEntity : class, IBaseEntity<TKeyType>
     {
-
+        protected override ProjenFrameworkDbContext Context
+        {
+            get
+            {
+                return ServiceTool.ServiceProvider.GetService<ProjenFrameworkDbContext>();
+            }
+        }
     }
 }

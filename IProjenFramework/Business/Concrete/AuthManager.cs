@@ -9,6 +9,7 @@ using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -21,15 +22,15 @@ namespace Business.Concrete
             _userService = userService;
             _tokenHelper = tokenHelper;
         }
-        public IDataResult<AccessToken> CreateAccessToken(User user)
+        public async Task<IDataResult<AccessToken>> CreateAccessToken(User user)
         {
-            var accessToken = _tokenHelper.CreateToken(user, _userService.GetClaims(user));
+            var accessToken = _tokenHelper.CreateToken(user, await _userService.GetClaims(user));
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 
-        public IDataResult<User> Login(UserForLoginDto userForLoginDto)
+        public async Task<IDataResult<User>> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
+            var userToCheck = await _userService.GetByMail(userForLoginDto.Email).ConfigureAwait(true);
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
@@ -43,7 +44,7 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
 
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
+        public async Task<IDataResult<User>> Register(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
@@ -56,13 +57,13 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-            _userService.Add(user);
+            await _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
 
-        public IResult UserExists(string email)
+        public async Task<IResult> UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            if (await _userService.GetByMail(email) != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExist);
             }

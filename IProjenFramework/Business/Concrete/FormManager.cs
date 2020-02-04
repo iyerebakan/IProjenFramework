@@ -6,6 +6,7 @@ using Entities.Entities.EntityForm;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -25,12 +26,12 @@ namespace Business.Concrete
             _repositoryForm = repositoryForm;
         }
 
-        public IDataResult<List<DesignGroupDetail>> GetDesignGroupDetails()
+        public async Task<IDataResult<List<DesignGroupDetail>>> GetDesignGroupDetails()
         {
             try
             {
                 return new SuccessDataResult<List<DesignGroupDetail>>
-                    (_repositoryDesignGroupDetail.GetAll());
+                    (await _repositoryDesignGroupDetail.GetAll());
             }
             catch (Exception ex)
             {
@@ -39,12 +40,12 @@ namespace Business.Concrete
             }
         }
 
-        public IDataResult<List<DesignGroup>> GetDesignGroups()
+        public async Task<IDataResult<List<DesignGroup>>> GetDesignGroups()
         {
             try
             {
                 return new SuccessDataResult<List<DesignGroup>>
-                    (_repositoryDesignGroup.GetAll());
+                    (await _repositoryDesignGroup.GetAll());
             }
             catch (Exception ex)
             {
@@ -53,12 +54,12 @@ namespace Business.Concrete
             }
         }
 
-        public IDataResult<List<Form>> GetForms()
+        public async Task<IDataResult<List<Form>>> GetForms()
         {
             try
             {
                 return new SuccessDataResult<List<Form>>
-                    (_repositoryForm.GetAll());
+                    (await _repositoryForm.GetAll());
             }
             catch (Exception ex)
             {
