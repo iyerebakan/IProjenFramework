@@ -2,6 +2,7 @@
 using Business.BusinessAspects;
 using Business.ValidationRules;
 using Core.Aspects.Autofac.Validation;
+using Core.Aspects.Caching;
 using Core.Utilities.Results;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityRepositories;
@@ -23,6 +24,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CustomerValidator), Priority = 1)]
+        [CacheRemoveAspect("getcustomers")]
         public async Task<IResult> Add(Customer customer)
         {
             try
@@ -47,6 +49,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Customer.List,Admin")]
+        [CacheAspect(Priority = 1)]
         public async Task<IDataResult<List<Customer>>> GetCustomers()
         {
             try
