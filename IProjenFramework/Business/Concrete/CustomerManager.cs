@@ -17,12 +17,9 @@ namespace Business.Concrete
     public class CustomerManager : ICustomerService
     {
         private readonly RepositoryCustomer _repositoryCustomer;
-        private readonly RepositoryCountry _repositoryCountry;
-        public CustomerManager(RepositoryCustomer repositoryCustomer
-            ,RepositoryCountry repositoryCountry)
+        public CustomerManager(RepositoryCustomer repositoryCustomer)
         {
             _repositoryCustomer = repositoryCustomer;
-            _repositoryCountry = repositoryCountry;
         }
 
         [ValidationAspect(typeof(CustomerValidator), Priority = 1)]
