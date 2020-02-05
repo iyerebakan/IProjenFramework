@@ -36,15 +36,27 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAllCustomers()
+        public async Task<IActionResult> GetAllCustomers()
         {
-            var result = _customerService.GetCustomers();
-            if (result.Result.Success)
+            var result = await _customerService.GetCustomers();
+            if (result.Success)
             {
-                return Ok(result.Result.Data);
+                return Ok(result.Data);
             }
 
-            return BadRequest(result.Result.Message);
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getbyId")]
+        public async Task<IActionResult> GetById()
+        {
+            var result = await _customerService.GetById(2);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(result.Message);
         }
     }
 }

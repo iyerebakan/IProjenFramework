@@ -63,5 +63,17 @@ namespace Business.Concrete
             }
         }
 
+        public async Task<IDataResult<Customer>> GetById(int id)
+        {
+            try
+            {
+                return new SuccessDataResult<Customer>
+                    (await _repositoryCustomer.GetById(id));
+            }
+            catch (Exception ex)
+            {
+                return new ErrorDataResult<Customer>(ex.Message);
+            }
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Business.Abstract
         Task<IResult> Update(Customer customer);
         Task<IResult> DeleteById(int id);
         Task<IDataResult<List<Customer>>> GetCustomers();
+        Task<IDataResult<Customer>> GetById(int id);
     }
 } 
