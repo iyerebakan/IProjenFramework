@@ -47,6 +47,7 @@ namespace WebAPI
                  })
                  .ConfigureWebHostDefaults(webBuilder =>
                  {
+                     webBuilder.UseUrls("http://localhost:7002");
                      webBuilder.UseStartup<Startup>();
                  });
     }

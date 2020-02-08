@@ -30,6 +30,7 @@ namespace IdentityServer
                  })
                  .ConfigureWebHostDefaults(webBuilder =>
                  {
+                     webBuilder.UseUrls("http://localhost:7001");
                      webBuilder.UseStartup<Startup>();
                  });
     }

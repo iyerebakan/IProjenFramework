@@ -31,7 +31,8 @@ namespace ApiGateway
                     .AddJsonFile("ocelot.json", false, false)
                     .AddEnvironmentVariables();
             })
-               .UseStartup<Startup>().Build();
+            .UseUrls("http://localhost:7000")
+            .UseStartup<Startup>().Build();
 
     }
 }
