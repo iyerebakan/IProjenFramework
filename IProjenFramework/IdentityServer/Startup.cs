@@ -6,10 +6,7 @@ using Core.Auth;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
-using Core.Utilities.Security.Encryption;
-using Core.Utilities.Security.Jwt;
 using DataAccess.Contexts;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
-namespace WebAPI
+namespace IdentityServer
 {
     public class Startup : CoreStartup
     {
@@ -38,14 +32,5 @@ namespace WebAPI
                ServiceLifetime.Scoped);
         }
 
-        protected override void ConfigureServiceMain(IServiceCollection services)
-        {
-            services.AddDependencyResolvers(new ICoreModule[]
-            {
-                new CoreModule()
-            });
-
-            base.ConfigureServiceMain(services);
-        }
     }
 }

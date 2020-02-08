@@ -49,7 +49,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Customer.List,Admin")]
-        [CacheAspect(Priority = 1)]
+        //[CacheAspect(Priority = 1)]
         public async Task<IDataResult<List<Customer>>> GetCustomers()
         {
             try
