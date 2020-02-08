@@ -10,7 +10,7 @@ using ScaffoldMigrationApp.Entities;
 namespace ScaffoldMigrationApp.Migrations
 {
     [DbContext(typeof(NortwindContext))]
-    [Migration("20200127122140_Initial")]
+    [Migration("20200208170057_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,6 +240,45 @@ namespace ScaffoldMigrationApp.Migrations
                     b.ToTable("Districts");
                 });
 
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.FormRights", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DeleteRight")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("FormId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("InsertRight")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("OperationClaimId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("UpdateRight")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ViewRight")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormId");
+
+                    b.HasIndex("OperationClaimId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FormRights");
+                });
+
             modelBuilder.Entity("ScaffoldMigrationApp.Entities.Forms", b =>
                 {
                     b.Property<int>("Id")
@@ -335,7 +374,7 @@ namespace ScaffoldMigrationApp.Migrations
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasName("IX_Users")
-                        .HasFilter("[Email] IS NOT NULL");
+                        .HasFilter("([Email] IS NOT NULL)");
 
                     b.ToTable("Users");
                 });
@@ -405,6 +444,27 @@ namespace ScaffoldMigrationApp.Migrations
                         .HasForeignKey("CityId")
                         .HasConstraintName("FK_Districts_Cities")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ScaffoldMigrationApp.Entities.FormRights", b =>
+                {
+                    b.HasOne("ScaffoldMigrationApp.Entities.Forms", "Form")
+                        .WithMany("FormRights")
+                        .HasForeignKey("FormId")
+                        .HasConstraintName("FK_FormRights_Forms")
+                        .IsRequired();
+
+                    b.HasOne("ScaffoldMigrationApp.Entities.OperationClaims", "OperationClaim")
+                        .WithMany("FormRights")
+                        .HasForeignKey("OperationClaimId")
+                        .HasConstraintName("FK_FormRights_OperationClaims")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ScaffoldMigrationApp.Entities.Users", "User")
+                        .WithMany("FormRights")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FK_FormRights_Users")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ScaffoldMigrationApp.Entities.UserOperationClaims", b =>

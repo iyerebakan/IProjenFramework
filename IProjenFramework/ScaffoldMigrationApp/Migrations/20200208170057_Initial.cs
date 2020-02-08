@@ -159,6 +159,43 @@ namespace ScaffoldMigrationApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FormRights",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: true),
+                    OperationClaimId = table.Column<int>(nullable: true),
+                    FormId = table.Column<int>(nullable: false),
+                    ViewRight = table.Column<bool>(nullable: false),
+                    InsertRight = table.Column<bool>(nullable: false),
+                    UpdateRight = table.Column<bool>(nullable: false),
+                    DeleteRight = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FormRights", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FormRights_Forms",
+                        column: x => x.FormId,
+                        principalTable: "Forms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FormRights_OperationClaims",
+                        column: x => x.OperationClaimId,
+                        principalTable: "OperationClaims",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FormRights_Users",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserOperationClaims",
                 columns: table => new
                 {
@@ -310,6 +347,21 @@ namespace ScaffoldMigrationApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_FormRights_FormId",
+                table: "FormRights",
+                column: "FormId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FormRights_OperationClaimId",
+                table: "FormRights",
+                column: "OperationClaimId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FormRights_UserId",
+                table: "FormRights",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserOperationClaims_OperationClaimId",
                 table: "UserOperationClaims",
                 column: "OperationClaimId");
@@ -324,7 +376,7 @@ namespace ScaffoldMigrationApp.Migrations
                 table: "Users",
                 column: "Email",
                 unique: true,
-                filter: "[Email] IS NOT NULL");
+                filter: "([Email] IS NOT NULL)");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -334,6 +386,9 @@ namespace ScaffoldMigrationApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "DesignGroupDetails");
+
+            migrationBuilder.DropTable(
+                name: "FormRights");
 
             migrationBuilder.DropTable(
                 name: "UserOperationClaims");

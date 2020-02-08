@@ -10,6 +10,7 @@ namespace ScaffoldMigrationApp.Entities
         public Forms()
         {
             DesignGroupDetails = new HashSet<DesignGroupDetails>();
+            FormRights = new HashSet<FormRights>();
         }
 
         [Key]
@@ -24,5 +25,7 @@ namespace ScaffoldMigrationApp.Entities
 
         [InverseProperty("Form")]
         public virtual ICollection<DesignGroupDetails> DesignGroupDetails { get; set; }
+        [InverseProperty("Form")]
+        public virtual ICollection<FormRights> FormRights { get; set; }
     }
 }

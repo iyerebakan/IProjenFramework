@@ -9,6 +9,7 @@ namespace ScaffoldMigrationApp.Entities
     {
         public OperationClaims()
         {
+            FormRights = new HashSet<FormRights>();
             UserOperationClaims = new HashSet<UserOperationClaims>();
         }
 
@@ -16,6 +17,8 @@ namespace ScaffoldMigrationApp.Entities
         public int Id { get; set; }
         public string Name { get; set; }
 
+        [InverseProperty("OperationClaim")]
+        public virtual ICollection<FormRights> FormRights { get; set; }
         [InverseProperty("OperationClaim")]
         public virtual ICollection<UserOperationClaims> UserOperationClaims { get; set; }
     }
