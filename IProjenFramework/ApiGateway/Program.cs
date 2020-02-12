@@ -17,7 +17,7 @@ namespace ApiGateway
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).RunAsService();
+            BuildWebHost(args).Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
