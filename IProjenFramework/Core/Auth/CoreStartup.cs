@@ -34,7 +34,7 @@ namespace Core.Auth
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:7000").AllowAnyHeader();
+                    builder.WithOrigins("http://localhost:7000").AllowAnyMethod().AllowAnyHeader();
                 });
             });
             //services.AddCors(c =>
