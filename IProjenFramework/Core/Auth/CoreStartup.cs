@@ -20,6 +20,8 @@ namespace Core.Auth
     {
         public IConfiguration Configuration { get; }
 
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public CoreStartup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +29,19 @@ namespace Core.Auth
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:7000").AllowAnyHeader();
+                });
+            });
+            //services.AddCors(c =>
+            //{
+            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            //});
+
             services.AddControllers()
                 .AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
             AddDbContext(services);
@@ -57,6 +72,9 @@ namespace Core.Auth
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
+            //app.UseCors(options => options.AllowAnyOrigin());
 
             ConfigureMain(app);
             app.ConfigureCustomExceptionMiddleware();
