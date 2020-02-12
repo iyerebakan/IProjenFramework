@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceProcess;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.IoCContainer;
 using DataAccess.IoCContainer;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.WindowsServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -32,7 +35,7 @@ namespace WebAPI
                  {
                      webBuilder.UseUrls("http://localhost:7002");
                      webBuilder.UseStartup<Startup>();
-                 });
+                 }).UseWindowsService();
     }
 }
 
