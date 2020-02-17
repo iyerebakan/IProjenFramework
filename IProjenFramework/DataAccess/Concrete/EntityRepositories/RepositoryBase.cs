@@ -2,6 +2,7 @@
 using Core.DataAccess;
 using Core.Entities;
 using Core.Entities.Interfaces;
+using Core.EntityFramework.DataAccess;
 using Core.Utilities.IoC;
 using DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;

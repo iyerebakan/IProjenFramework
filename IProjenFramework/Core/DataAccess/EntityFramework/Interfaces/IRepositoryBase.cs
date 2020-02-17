@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.DataAccess.Interfaces
+namespace Core.DataAccess.EntityFramework.Interfaces
 {
     public interface IRepositoryBase<TKeyType, TEntity, TContext>
         where TEntity : class, IBaseEntity<TKeyType>

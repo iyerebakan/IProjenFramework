@@ -1,4 +1,4 @@
-﻿using Core.DataAccess.Interfaces;
+﻿using Core.DataAccess.EntityFramework.Interfaces;
 using Core.Entities;
 using Core.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.DataAccess
+namespace Core.EntityFramework.DataAccess
 {
     public abstract class AbstractRepositoryBase<TKeyType, TEntity, TContext> :
         IRepositoryBase<TKeyType, TEntity, TContext>
