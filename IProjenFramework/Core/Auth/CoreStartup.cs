@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace Core.Auth
 {
@@ -86,6 +87,12 @@ namespace Core.Auth
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiGateway Microservice V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {

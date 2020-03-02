@@ -18,7 +18,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens; 
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -40,6 +41,11 @@ namespace WebAPI
 
         protected override void ConfigureServiceMain(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityServer Microservice", Version = "v1" });
+            });
+
             services.AddDependencyResolvers(new ICoreModule[]
             {
                 new CoreModule()

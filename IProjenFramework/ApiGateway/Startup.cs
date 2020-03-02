@@ -12,7 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
- 
+using Microsoft.OpenApi.Models;
+
 namespace ApiGateway
 {
     public class Startup
@@ -31,6 +32,11 @@ namespace ApiGateway
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gateway Microservice", Version = "v1" });
+            });
             services.AddControllers();
             services.AddOcelot(Configuration);
         }
@@ -48,6 +54,13 @@ namespace ApiGateway
             app.UseRouting();
 
             app.UseAuthorization();
+
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiGateway Microservice V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
