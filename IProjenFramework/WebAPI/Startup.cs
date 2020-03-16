@@ -2,13 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Business.RabbitMQ;
 using Core.Auth;
 using Core.DependencyResolvers;
 using Core.Extensions;
+using Core.RabbitMQ.Bus;
+using Core.RabbitMQ.Infrastructure;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
 using DataAccess.Contexts;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,6 +54,7 @@ namespace WebAPI
             {
                 new CoreModule()
             });
+
 
             base.ConfigureServiceMain(services);
         }

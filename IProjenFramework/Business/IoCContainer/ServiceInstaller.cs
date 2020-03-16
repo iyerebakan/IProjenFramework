@@ -30,6 +30,8 @@ namespace Business.IoCContainer
                 {
                     Selector = new AspectInterceptorSelector()
                 }).SingleInstance();
+
+            
         }
     }
 }

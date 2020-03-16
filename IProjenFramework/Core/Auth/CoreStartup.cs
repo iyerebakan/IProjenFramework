@@ -14,6 +14,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Core.RabbitMQ.Infrastructure;
+using Core.RabbitMQ.Bus;
+using MediatR;
 
 namespace Core.Auth
 {
@@ -63,6 +66,13 @@ namespace Core.Auth
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
+
+            services.AddMediatR(typeof(CoreStartup));
+            services.AddSingleton<IEventBus, RabbitMQBus>(sp =>
+            {
+                var scopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
+                return new RabbitMQBus(sp.GetService<IMediator>(), scopeFactory);
+            });
 
             ConfigureServiceMain(services);
         }

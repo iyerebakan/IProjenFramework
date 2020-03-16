@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Business.RabbitMQ;
 using Core.Auth;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
 using DataAccess.Contexts;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +37,12 @@ namespace IdentityServer
             services.AddDbContext<ProjenFrameworkDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
                ServiceLifetime.Scoped);
+        }
+
+        protected override void ConfigureServiceMain(IServiceCollection services)
+        {
+            services.AddTransient<IRequestHandler<CreateLoginCommand, bool>, LoginCommandHandler>();
+            base.ConfigureServiceMain(services);
         }
 
     }

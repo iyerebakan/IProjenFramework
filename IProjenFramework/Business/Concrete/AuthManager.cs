@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.RabbitMQ;
 using Core.Entities.Concrete;
+using Core.RabbitMQ.Bus;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
@@ -17,10 +19,12 @@ namespace Business.Concrete
     {
         private readonly IUserService _userService;
         private readonly ITokenHelper _tokenHelper;
-        public AuthManager(IUserService userService,ITokenHelper tokenHelper)
+        private readonly IEventBus _eventBus;
+        public AuthManager(IUserService userService,ITokenHelper tokenHelper,IEventBus eventBus)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
+            _eventBus = eventBus;
         }
         public async Task<IDataResult<AccessToken>> CreateAccessToken(User user)
         {
@@ -40,7 +44,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
-
+            await _eventBus.SendCommand(new CreateLoginCommand(userToCheck.FirstName, userToCheck.LastName, userToCheck.Email));
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
 
