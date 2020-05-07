@@ -4,8 +4,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Build Starts!'
-                bat "\"C:/Program Files/dotnet/dotnet.exe\" restore \"C:\Projects\IProjenFramework\IProjenFramework/IProjenFramework.sln\""
-                bat "\"C:/Program Files/dotnet/dotnet.exe\" build \"C:\Projects\IProjenFramework\IProjenFramework/IProjenFramework.sln\""
+                bat "\"C:/Program Files/dotnet/dotnet.exe\" restore \"C:/Projects/IProjenFramework/IProjenFramework/IProjenFramework.sln\""
+                bat "\"C:/Program Files/dotnet/dotnet.exe\" build \"C:/Projects/IProjenFramework/IProjenFramework/IProjenFramework.sln\""
                 echo 'Build Ends'
             }
         }
