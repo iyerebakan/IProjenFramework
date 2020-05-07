@@ -13,7 +13,7 @@ pipeline {
 	stage('Identity Deploy') {
             steps {
                 echo 'Deploy Starts!'
-                bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"${workspace}/IdentityServer\" --output \"C:/WebApis/IdentityServer\""
+                bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"C:/Projects/IProjenFramework/IProjenFramework/IdentityServer\" --output \"C:/WebApis/IdentityServer\""
                 echo 'Deploy Ends'
             }
         }		
@@ -21,7 +21,7 @@ pipeline {
         stage('Gateway Deploy') {
             steps {
                 echo 'Deploy Starts!'
-                bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"${workspace}/ApiGateway\" --output \"C:/WebApis/ApiGateway\""
+                bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"C:/Projects/IProjenFramework/IProjenFramework/ApiGateway\" --output \"C:/WebApis/ApiGateway\""
                 echo 'Deploy Ends'
             }
         }	
