@@ -10,7 +10,7 @@ pipeline {
             }
         }
 		
-		stage('Deploy') {
+	stage('Identity Deploy') {
             steps {
                 echo 'Deploy Starts!'
                 bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"${workspace}/IdentityServer\" --output \"C:/WebApis/IdentityServer\""
@@ -18,7 +18,7 @@ pipeline {
             }
         }		
         
-        stage('Deploy') {
+        stage('Gateway Deploy') {
             steps {
                 echo 'Deploy Starts!'
                 bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"${workspace}/ApiGateway\" --output \"C:/WebApis/ApiGateway\""
@@ -26,7 +26,7 @@ pipeline {
             }
         }	
         
-        stage('Deploy') {
+        stage('WebAPI Deploy') {
             steps {
                 echo 'Deploy Starts!'
                 bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"${workspace}/WebAPI\" --output \"C:/WebApis/WebAPI\""
