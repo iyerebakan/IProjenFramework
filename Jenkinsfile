@@ -29,7 +29,7 @@ pipeline {
         stage('WebAPI Deploy') {
             steps {
                 echo 'Deploy Starts!'
-                bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"${workspace}/WebAPI\" --output \"C:/WebApis/WebAPI\""
+                bat "\"C:/Program Files/dotnet/dotnet.exe\" publish \"C:/Projects/IProjenFramework/IProjenFramework/WebAPI\" --output \"C:/WebApis/WebAPI\""
                 echo 'Deploy Ends'
             }
         }	
